@@ -57,16 +57,16 @@ class _AlarmsPageState extends TbContextState<AlarmsPage>
                   actions: [
                     Stack(
                       children: [
-                        IconButton(
-                          icon: const Icon(Icons.filter_list),
-                          onPressed: () {
-                            _preloadPageCtrl.animateToPage(
-                              1,
-                              duration: const Duration(milliseconds: 400),
-                              curve: Curves.easeInOut,
-                            );
-                          },
-                        ),
+                        // IconButton(
+                        //   icon: const Icon(Icons.filter_list),
+                        //   onPressed: () {
+                        //     _preloadPageCtrl.animateToPage(
+                        //       1,
+                        //       duration: const Duration(milliseconds: 400),
+                        //       curve: Curves.easeInOut,
+                        //     );
+                        //   },
+                        // ),
                         BlocBuilder<AlarmBloc, AlarmsState>(
                           builder: (context, state) {
                             if (state is AlarmsFilterActivatedState) {

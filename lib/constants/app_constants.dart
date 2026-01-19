@@ -1,7 +1,7 @@
 abstract final class ThingsboardAppConstants {
-  static const thingsBoardApiEndpoint = String.fromEnvironment('thingsboardApiEndpoint');
-  static const thingsboardOAuth2CallbackUrlScheme = String.fromEnvironment('thingsboardOAuth2CallbackUrlScheme');
+  static const thingsBoardApiEndpoint = "http://34.203.50.4:8080";
+  static const thingsboardOAuth2CallbackUrlScheme = "com.iserv.uca.auth";
   static const thingsboardIOSAppSecret = String.fromEnvironment('thingsboardIosAppSecret');
-  static const thingsboardAndroidAppSecret = String.fromEnvironment('thingsboardAndroidAppSecret');
+  static const thingsboardAndroidAppSecret = "ejVsZkppRXNWYkZBQ3lsVkIxUnVaaXhXbkoxeGloU0tWNHJNMWN2WEZQWWVIZ2hDRlBnd2RlRHBJalZtWGphQg==";
   static const ignoreRegionSelection = thingsBoardApiEndpoint != '';
 }

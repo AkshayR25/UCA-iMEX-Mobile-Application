@@ -24,7 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Congratulations!\nYour ${appTitle} account has been activated.\nNow you can login to your ${appTitle} space.";
 
   static String m1(count) =>
-      "${Intl.plural(count, one: 'Alarm', other: 'Alarms')}";
+      "${Intl.plural(count, one: 'Alert', other: 'Alerts')}";
 
   static String m2(deviceName) =>
       "Cannot establish session with device ${deviceName}. Please try again";
@@ -204,10 +204,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "alarmClearTitle": MessageLookupByLibrary.simpleMessage("Clear Alarm"),
     "alarmSeverityList": MessageLookupByLibrary.simpleMessage(
-      "Alarm severity list",
+      "Alert severity list",
     ),
     "alarmStatusList": MessageLookupByLibrary.simpleMessage(
-      "Alarm status list",
+      "Alert status list",
     ),
     "alarmTypeList": MessageLookupByLibrary.simpleMessage("Alarm type list"),
     "alarmTypes": MessageLookupByLibrary.simpleMessage("Alarm types"),
@@ -223,7 +223,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "anyType": MessageLookupByLibrary.simpleMessage("Any type"),
     "apiUsageState": MessageLookupByLibrary.simpleMessage("API Usage State"),
-    "appTitle": MessageLookupByLibrary.simpleMessage("ThingsBoard"),
+    "appTitle": MessageLookupByLibrary.simpleMessage(
+      "ITHENA Performance Monitoring",
+    ),
     "areYouSure": MessageLookupByLibrary.simpleMessage("Are you sure?"),
     "asset": MessageLookupByLibrary.simpleMessage("Asset"),
     "assetName": MessageLookupByLibrary.simpleMessage("Asset name"),
@@ -431,7 +433,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "newUserText": MessageLookupByLibrary.simpleMessage("New User?"),
     "next": MessageLookupByLibrary.simpleMessage("Next"),
     "no": MessageLookupByLibrary.simpleMessage("No"),
-    "noAlarmsFound": MessageLookupByLibrary.simpleMessage("No alarms found"),
+    "noAlarmsFound": MessageLookupByLibrary.simpleMessage("No alerts found"),
     "noDashboardsFound": MessageLookupByLibrary.simpleMessage(
       "No dashboards found",
     ),

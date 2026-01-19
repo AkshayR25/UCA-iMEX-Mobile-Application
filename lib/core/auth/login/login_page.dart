@@ -121,15 +121,15 @@ class _LoginPageState extends TbPageState<LoginPage>
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        SvgPicture.asset(
-                                          ThingsboardImage.thingsBoardWithTitle,
-                                          height: 25,
+                                        ColorFiltered(
                                           colorFilter: ColorFilter.mode(
                                             Theme.of(context).primaryColor,
                                             BlendMode.srcIn,
                                           ),
-                                          semanticsLabel:
-                                              S.of(context).logoDefaultValue,
+                                          child: Image.asset(
+                                            ThingsboardImage.thingsBoardWithTitle,
+                                            height: 25,
+                                          ),
                                         ),
                                         const SizedBox(height: 25),
                                         Visibility(

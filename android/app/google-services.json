@@ -1,0 +1,124 @@
+{
+  "project_info": {
+    "project_number": "1061327898101",
+    "project_id": "iserv-cmms",
+    "storage_bucket": "iserv-cmms.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061327898101:android:301aa5304668c0ae064cbc",
+        "android_client_info": {
+          "package_name": "ai.ithena.iserv"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiWuYhn_Zc9gj0kr8FqyKo3F9kEtcxKHc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061327898101:android:64f9da95192f496b064cbc",
+        "android_client_info": {
+          "package_name": "ai.ithena.iserv.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiWuYhn_Zc9gj0kr8FqyKo3F9kEtcxKHc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061327898101:android:2dfdb31c8e8d1e14064cbc",
+        "android_client_info": {
+          "package_name": "ai.ithena.iserv.ca"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiWuYhn_Zc9gj0kr8FqyKo3F9kEtcxKHc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061327898101:android:c2540f7fa6be0dc1064cbc",
+        "android_client_info": {
+          "package_name": "ai.ithena.iserv.hi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiWuYhn_Zc9gj0kr8FqyKo3F9kEtcxKHc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061327898101:android:f8b50a8824b48130064cbc",
+        "android_client_info": {
+          "package_name": "ai.ithena.iserv.iot"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiWuYhn_Zc9gj0kr8FqyKo3F9kEtcxKHc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061327898101:android:f5db1de9f7108452064cbc",
+        "android_client_info": {
+          "package_name": "com.iserv.uca"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiWuYhn_Zc9gj0kr8FqyKo3F9kEtcxKHc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

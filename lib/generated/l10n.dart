@@ -54,9 +54,14 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `ThingsBoard`
+  /// `ITHENA Performance Monitoring`
   String get appTitle {
-    return Intl.message('ThingsBoard', name: 'appTitle', desc: '', args: []);
+    return Intl.message(
+      'ITHENA Performance Monitoring',
+      name: 'appTitle',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Home`
@@ -1628,10 +1633,10 @@ class S {
     );
   }
 
-  /// `No alarms found`
+  /// `No alerts found`
   String get noAlarmsFound {
     return Intl.message(
-      'No alarms found',
+      'No alerts found',
       name: 'noAlarmsFound',
       desc: '',
       args: [],
@@ -1643,20 +1648,20 @@ class S {
     return Intl.message('Filters', name: 'filters', desc: '', args: []);
   }
 
-  /// `Alarm status list`
+  /// `Alert status list`
   String get alarmStatusList {
     return Intl.message(
-      'Alarm status list',
+      'Alert status list',
       name: 'alarmStatusList',
       desc: '',
       args: [],
     );
   }
 
-  /// `Alarm severity list`
+  /// `Alert severity list`
   String get alarmSeverityList {
     return Intl.message(
-      'Alarm severity list',
+      'Alert severity list',
       name: 'alarmSeverityList',
       desc: '',
       args: [],
@@ -2157,12 +2162,12 @@ class S {
     );
   }
 
-  /// `{count, plural, =1{Alarm} other{Alarms}}`
+  /// `{count, plural, =1{Alert} other{Alerts}}`
   String alarms(int count) {
     return Intl.plural(
       count,
-      one: 'Alarm',
-      other: 'Alarms',
+      one: 'Alert',
+      other: 'Alerts',
       name: 'alarms',
       desc: '',
       args: [count],

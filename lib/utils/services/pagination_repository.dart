@@ -1,19 +1,19 @@
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart' as isp;
 import 'package:thingsboard_app/core/entity/entities_base.dart';
 import 'package:thingsboard_app/thingsboard_client.dart';
 
-abstract base class PaginationRepository<T, B> {
+abstract base class PaginationRepository<B, T> {
   PaginationRepository({
     required this.pageKeyController,
   }) {
     init();
   }
 
-  late final PagingController<T, B> pagingController;
-  final PageKeyController<T> pageKeyController;
+  late final isp.PagingController<B, T> pagingController;
+  final PageKeyController<B> pageKeyController;
 
   void init() {
-    pagingController = PagingController(
+    pagingController = isp.PagingController(
       firstPageKey: pageKeyController.value.pageKey,
     );
 
@@ -32,10 +32,10 @@ abstract base class PaginationRepository<T, B> {
     _fetchPage(pagingController.firstPageKey, refresh: true);
   }
 
-  Future<PageData<B>> fetchPageData(T pageKey);
+  Future<PageData<T>> fetchPageData(B pageKey);
 
   Future<void> _fetchPage(
-    T pageKey, {
+    B pageKey, {
     bool refresh = false,
   }) async {
     try {

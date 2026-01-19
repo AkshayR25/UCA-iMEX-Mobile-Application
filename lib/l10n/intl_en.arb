@@ -1,5 +1,5 @@
 {
-  "appTitle": "ThingsBoard",
+  "appTitle": "ITHENA Performance Monitoring",
   "home": "Home",
   "devices": "{count, plural, =1{Device} other{Devices}}",
   "@devices": {
@@ -207,10 +207,10 @@
   "searchResults": "Search results",
   "viewAll": "View all",
   "requestedEntityDoesNotExists": "Requested entity does not exists.",
-  "noAlarmsFound": "No alarms found",
+  "noAlarmsFound": "No alerts found",
   "filters": "Filters",
-  "alarmStatusList": "Alarm status list",
-  "alarmSeverityList": "Alarm severity list",
+  "alarmStatusList": "Alert status list",
+  "alarmSeverityList": "Alert severity list",
   "cleared": "Cleared",
   "acknowledged": "Acknowledged",
   "unacknowledged": "Unacknowledged",
@@ -285,7 +285,7 @@
   "asset": "Asset",
   "deviceProfile": "Device profile",
   "assetProfile": "Asset profile",
-  "alarms": "{count, plural, =1{Alarm} other{Alarms}}",
+  "alarms": "{count, plural, =1{Alert} other{Alerts}}",
   "@alarms": {
     "placeholders": {
       "count": {

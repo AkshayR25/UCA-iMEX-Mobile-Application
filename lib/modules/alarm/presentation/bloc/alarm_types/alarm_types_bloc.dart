@@ -45,7 +45,7 @@ class AlarmTypesBloc extends Bloc<AlarmTypesEvent, AlarmTypesState> {
             AlarmTypeSelectedState(
               selectedTypes: types,
               allowToAddMore: types.length <
-                  (paginationRepository.pagingController.itemList?.length ?? 0),
+                  (paginationRepository.pagingController.value.itemList?.length ?? 0),
             ),
           );
         } else {
@@ -66,7 +66,7 @@ class AlarmTypesBloc extends Bloc<AlarmTypesEvent, AlarmTypesState> {
             AlarmTypeSelectedState(
               selectedTypes: types,
               allowToAddMore: types.length <
-                  (paginationRepository.pagingController.itemList?.length ?? 0),
+                  (paginationRepository.pagingController.value.itemList?.length ?? 0),
             ),
           );
         } else {

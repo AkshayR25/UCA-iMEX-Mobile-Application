@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart' as isp;
 import 'package:thingsboard_app/modules/notification/controllers/notification_query_ctrl.dart';
 import 'package:thingsboard_app/thingsboard_client.dart';
 
@@ -12,12 +12,12 @@ class NotificationPaginationRepository {
 
   final NotificationQueryCtrl notificationQueryPageCtrl;
   final ThingsboardClient tbClient;
-  late final PagingController<PushNotificationQuery, PushNotification>
+  late final isp.PagingController<PushNotificationQuery, PushNotification>
       pagingController;
 
   void init() {
     pagingController =
-        PagingController<PushNotificationQuery, PushNotification>(
+        isp.PagingController<PushNotificationQuery, PushNotification>(
       firstPageKey: notificationQueryPageCtrl.value.pageKey,
     );
 

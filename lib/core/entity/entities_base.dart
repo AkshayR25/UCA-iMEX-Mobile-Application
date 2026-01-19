@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart' as isp;
 import 'package:intl/intl.dart';
 import 'package:thingsboard_app/core/context/tb_context.dart';
 import 'package:thingsboard_app/core/context/tb_context_widget.dart';
@@ -213,7 +213,7 @@ abstract class BaseEntitiesWidget<T, P> extends TbContextWidget
 abstract class BaseEntitiesState<T, P>
     extends TbContextState<BaseEntitiesWidget<T, P>> {
   BaseEntitiesState();
-  late final PagingController<P, T> pagingController;
+  late final isp.PagingController<P, T> pagingController;
   Completer<void>? _refreshCompleter;
   bool _dataLoading = false;
   bool _scheduleRefresh = false;
@@ -223,7 +223,7 @@ abstract class BaseEntitiesState<T, P>
   @override
   void initState() {
     super.initState();
-    pagingController = PagingController(
+    pagingController = isp.PagingController(
       firstPageKey: widget.pageKeyController.value.pageKey,
     );
     widget.pageKeyController.addListener(_didChangePageKeyValue);

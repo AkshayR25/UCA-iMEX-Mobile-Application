@@ -23,10 +23,19 @@ class ProfileWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            UserInfoAvatarWidget(
-              shortName: userDetails.shortName,
-              color: UiUtils.colorFromString(userDetails.displayName),
-            ),
+            Row(children: [
+              UserInfoAvatarWidget(
+                shortName: userDetails.shortName,
+                color: UiUtils.colorFromString(userDetails.displayName),
+              ),
+              const SizedBox(width: 5,),
+              Text(
+                userDetails.displayName,
+                style: TbTextStyles.labelLarge.copyWith(
+                  color: Colors.black.withValues(alpha: .76),
+                ),
+              ),
+            ],),
             SizedBox(
               height: 32,
               width: 32,
@@ -43,32 +52,32 @@ class ProfileWidget extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 8),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Flexible(
-              child: Text(
-                userDetails.displayName,
-                style: TbTextStyles.labelLarge.copyWith(
-                  color: Colors.black.withValues(alpha: .76),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: EndpointNameWidget(
-                endpoint: getIt<IEndpointService>().getCachedEndpoint(),
-              ),
-            ),
-          ],
-        ),
-        Text(
-          _getAuthorityName(context, user),
-          style: TbTextStyles.labelSmall.copyWith(
-            color: Colors.black.withValues(alpha: .38),
-          ),
-        ),
+        // const SizedBox(height: 8),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: [
+        //     Flexible(
+        //       child: Text(
+        //         userDetails.displayName,
+        //         style: TbTextStyles.labelLarge.copyWith(
+        //           color: Colors.black.withValues(alpha: .76),
+        //         ),
+        //       ),
+        //     ),
+        //     Padding(
+        //       padding: const EdgeInsets.only(left: 10),
+        //       child: EndpointNameWidget(
+        //         endpoint: getIt<IEndpointService>().getCachedEndpoint(),
+        //       ),
+        //     ),
+        //   ],
+        // ),
+        // Text(
+        //   _getAuthorityName(context, user),
+        //   style: TbTextStyles.labelSmall.copyWith(
+        //     color: Colors.black.withValues(alpha: .38),
+        //   ),
+        // ),
       ],
     );
   }

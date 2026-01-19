@@ -1,18 +1,17 @@
 abstract class ThingsboardImage {
   static const thingsBoardWithTitle =
-      'assets/images/thingsboard_with_title.svg';
-  static const thingsboard = 'assets/images/thingsboard.svg';
+      'assets/images/ithena_with_title.png';
+  static const thingsboard = 'assets/images/ithena.png';
   static const thingsboardOuter = 'assets/images/thingsboard_outer.svg';
-  static const thingsboardCenter = 'assets/images/thingsboard_center.svg';
+  static const thingsboardCenter = 'assets/images/ithena_center.png';
   static const dashboardPlaceholder = 'assets/images/dashboard-placeholder.svg';
   static const deviceProfilePlaceholder =
       'assets/images/device-placeholder.svg';
   static const noDataImage = 'assets/images/no-data.svg';
-  static const thingsboardBigLogo = 'assets/images/thingsboard_big_logo.svg';
+  static const thingsboardBigLogo = 'ithena_with_title.png';
   static const deviceProvisioning = 'assets/images/provisioning.svg';
   static const deviceProvisioningDone = 'assets/images/provisioning-done.svg';
-  static const deviceProvisioningError =
-      'assets/images/device-not-connected.svg';
+  static const deviceProvisioningError = 'assets/images/device-not-connected.svg';
   static const deviceNotFound = 'assets/images/device_not_found.svg';
   static const provisioningError = 'assets/images/provisioning_error.svg';
   static const connectMobile = 'assets/images/connect_mobile.svg';

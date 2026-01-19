@@ -23,45 +23,45 @@ class DashboardsAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TbAppBar(
-       canGoBack: leading != null,
-        tbContext,
-        leading: leading ??
-            (Navigator.of(context).canPop()
-                ? BackButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                  )
-                : null),
-        elevation: dashboardState ? 0 : 8,
-        title: Center(
-          child: SizedBox(
-            height: 24,
-            child: SvgPicture.asset(
-              ThingsboardImage.thingsBoardWithTitle,
-              colorFilter: ColorFilter.mode(
-                Theme.of(context).primaryColor,
-                BlendMode.srcIn,
-              ),
-              semanticsLabel: 'ThingsBoard Logo',
-            ),
-          ),
-        ),
-        actions: [
-          if (tbContext.tbClient.isSystemAdmin())
-            IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () {
-                getIt<ThingsboardAppRouter>()
-                    // translate-me-ignore-next-line
-                    .navigateTo('/tenants?search=true');
-              },
-            ),
-          if (leading != null)
-            const SizedBox(
-              width: 56,
-            ),
-        ],
-      ),
+      // appBar: TbAppBar(
+      //  canGoBack: leading != null,
+      //   tbContext,
+      //   leading: leading ??
+      //       (Navigator.of(context).canPop()
+      //           ? BackButton(
+      //               onPressed: () => Navigator.of(context).pop(),
+      //             )
+      //           : null),
+      //   elevation: dashboardState ? 0 : 8,
+      //   title: Center(
+      //     child: SizedBox(
+      //       height: 24,
+      //       child: Image.asset(
+      //         ThingsboardImage.thingsBoardWithTitle,
+      //         // colorFilter: ColorFilter.mode(
+      //         //   Theme.of(context).primaryColor,
+      //         //   BlendMode.srcIn,
+      //         // ),
+      //         // semanticsLabel: 'Ithena Logo',
+      //       ),
+      //     ),
+      //   ),
+      //   actions: [
+      //     if (tbContext.tbClient.isSystemAdmin())
+      //       IconButton(
+      //         icon: const Icon(Icons.search),
+      //         onPressed: () {
+      //           getIt<ThingsboardAppRouter>()
+      //               // translate-me-ignore-next-line
+      //               .navigateTo('/tenants?search=true');
+      //         },
+      //       ),
+      //     if (leading != null)
+      //       const SizedBox(
+      //         width: 56,
+      //       ),
+      //   ],
+      // ),
       body: body,
     );
   }

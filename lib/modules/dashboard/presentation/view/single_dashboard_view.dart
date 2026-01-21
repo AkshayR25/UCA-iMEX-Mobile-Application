@@ -38,57 +38,57 @@ class _SingleDashboardViewState extends TbContextState<SingleDashboardView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TbAppBar(
-        tbContext,
-        leading: BackButton(
-          onPressed: () async {
-            if (_dashboardController?.rightLayoutOpened.value == true) {
-              await _dashboardController?.toggleRightLayout();
-              return;
-            }
-
-            final controller = _dashboardController?.controller;
-            if (await controller?.canGoBack() == true) {
-              await controller?.goBack();
-            } else {
-              if (context.mounted) {
-                Navigator.of(context).pop();
-              }
-            }
-          },
-        ),
-        elevation: 1,
-        shadowColor: Colors.transparent,
-        title: ValueListenableBuilder<String>(
-          valueListenable: dashboardTitleValue,
-          builder: (context, title, widget) {
-            return Text(
-              title,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            );
-          },
-        ),
-        actions: [
-          ValueListenableBuilder<bool>(
-            valueListenable: hasRightLayout,
-            builder: (context, hasRightLayout, widget) {
-              if (hasRightLayout) {
-                return IconButton(
-                  onPressed: () => _dashboardController?.toggleRightLayout(),
-                  icon: AnimatedIcon(
-                    progress: rightLayoutMenuAnimation,
-                    icon: AnimatedIcons.menu_close,
-                  ),
-                );
-              } else {
-                return const SizedBox.shrink();
-              }
-            },
-          ),
-        ],
-        canGoBack: canGoBack,
-      ),
+      // appBar: TbAppBar(
+      //   tbContext,
+      //   leading: BackButton(
+      //     onPressed: () async {
+      //       if (_dashboardController?.rightLayoutOpened.value == true) {
+      //         await _dashboardController?.toggleRightLayout();
+      //         return;
+      //       }
+      //
+      //       final controller = _dashboardController?.controller;
+      //       if (await controller?.canGoBack() == true) {
+      //         await controller?.goBack();
+      //       } else {
+      //         if (context.mounted) {
+      //           Navigator.of(context).pop();
+      //         }
+      //       }
+      //     },
+      //   ),
+      //   elevation: 1,
+      //   shadowColor: Colors.transparent,
+      //   title: ValueListenableBuilder<String>(
+      //     valueListenable: dashboardTitleValue,
+      //     builder: (context, title, widget) {
+      //       return Text(
+      //         title,
+      //         maxLines: 1,
+      //         overflow: TextOverflow.ellipsis,
+      //       );
+      //     },
+      //   ),
+      //   actions: [
+      //     ValueListenableBuilder<bool>(
+      //       valueListenable: hasRightLayout,
+      //       builder: (context, hasRightLayout, widget) {
+      //         if (hasRightLayout) {
+      //           return IconButton(
+      //             onPressed: () => _dashboardController?.toggleRightLayout(),
+      //             icon: AnimatedIcon(
+      //               progress: rightLayoutMenuAnimation,
+      //               icon: AnimatedIcons.menu_close,
+      //             ),
+      //           );
+      //         } else {
+      //           return const SizedBox.shrink();
+      //         }
+      //       },
+      //     ),
+      //   ],
+      //   canGoBack: canGoBack,
+      // ),
       body: SafeArea(
         child: DashboardWidget(
           tbContext,

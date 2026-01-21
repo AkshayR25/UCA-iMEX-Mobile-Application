@@ -349,8 +349,8 @@ Future<bool> checkDasboardAccess(String id) async {
       );
       return;
     }
-    final bool fullscreen = _userForceFullscreen();
-    if (fullscreen) {
+    /*final bool fullscreen = userForceFullscreen();
+    if (fullscreen) {x
       thingsboardAppRouter.navigateTo(
         '/fullscreenDashboard/$defaultDashboardId',
         replace: true,
@@ -358,11 +358,11 @@ Future<bool> checkDasboardAccess(String id) async {
         transition: TransitionType.fadeIn,
       );
       return;
-    }
-    await thingsboardAppRouter.navigateToDashboard(
-      defaultDashboardId,
-      animate: false,
-    );
+    }*/
+    // await thingsboardAppRouter.navigateToDashboard(
+    //   defaultDashboardId,
+    //   animate: false,
+    // );
     thingsboardAppRouter.navigateTo(
       '/main',
       replace: true,
@@ -372,6 +372,13 @@ Future<bool> checkDasboardAccess(String id) async {
     );
   }
 
+  String? defaultDashboardId() {
+    if (userDetails != null && userDetails!.additionalInfo != null) {
+      return userDetails!.additionalInfo!['defaultDashboardId']?.toString();
+    }
+    return null;
+  }
+
   String? _defaultDashboardId() {
     if (userDetails != null && userDetails!.additionalInfo != null) {
       return userDetails!.additionalInfo!['defaultDashboardId']?.toString();
@@ -379,7 +386,7 @@ Future<bool> checkDasboardAccess(String id) async {
     return null;
   }
 
-  bool _userForceFullscreen() {
+  bool userForceFullscreen() {
     return tbClient.getAuthUser()!.isPublic! ||
         (userDetails != null &&
             userDetails!.additionalInfo != null &&

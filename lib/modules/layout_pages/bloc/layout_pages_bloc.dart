@@ -98,6 +98,12 @@ class LayoutPagesBloc extends Bloc<LayoutPagesEvent, LayoutPagesState> {
   Widget getWidget(PageLayout pageLayout) {
     switch (pageLayout.id) {
       case Pages.home:
+        if (tbContext.defaultDashboardId() != null && tbContext.userForceFullscreen()) {
+          return SingleDashboardView(tbContext,
+            id: tbContext.defaultDashboardId().toString(),
+            hideToolbar: true,
+          );
+        }
         return HomePage(tbContext);
       case Pages.alarms:
         return AlarmsPage(tbContext);

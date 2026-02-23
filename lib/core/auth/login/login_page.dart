@@ -121,17 +121,12 @@ class _LoginPageState extends TbPageState<LoginPage>
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        ColorFiltered(
-                                          colorFilter: ColorFilter.mode(
-                                            Theme.of(context).primaryColor,
-                                            BlendMode.srcIn,
-                                          ),
-                                          child: Image.asset(
+                                        Image.asset(
                                             ThingsboardImage.thingsBoardWithTitle,
-                                            height: 25,
+                                            height:65,
                                           ),
-                                        ),
-                                        const SizedBox(height: 25),
+
+                                        const SizedBox(height:35),
                                         Visibility(
                                           visible: selectedRegion != null,
                                           child: TextButton(
@@ -173,7 +168,7 @@ class _LoginPageState extends TbPageState<LoginPage>
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(height: 32),
+                                    const SizedBox(height: 50),
                                     Align(
                                       child: Text(
                                         S.of(context).loginNotification,
@@ -184,7 +179,7 @@ class _LoginPageState extends TbPageState<LoginPage>
                                         ),
                                       ),
                                     ),
-                                    const SizedBox(height: 48),
+                                    const SizedBox(height: 20),
                                     if (state.oAuthClients.isNotEmpty)
                                       _buildOAuth2Buttons(state.oAuthClients),
                                     Visibility(

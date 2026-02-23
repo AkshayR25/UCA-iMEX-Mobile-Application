@@ -30,6 +30,7 @@ class _ThingsBoardAppState extends State<ThingsboardApp> {
   Widget build(BuildContext context) {
     return ToastificationWrapper(
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         localizationsDelegates: const [
           S.delegate,
           GlobalMaterialLocalizations.delegate,

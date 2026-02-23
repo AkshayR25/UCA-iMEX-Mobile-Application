@@ -1,5 +1,5 @@
 {
-  "appTitle": "ITHENA Performance Monitoring",
+  "appTitle": "intelliAIR",
   "home": "Home",
   "devices": "{count, plural, =1{Device} other{Devices}}",
   "@devices": {

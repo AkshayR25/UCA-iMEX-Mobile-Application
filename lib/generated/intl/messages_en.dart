@@ -224,7 +224,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "anyType": MessageLookupByLibrary.simpleMessage("Any type"),
     "apiUsageState": MessageLookupByLibrary.simpleMessage("API Usage State"),
     "appTitle": MessageLookupByLibrary.simpleMessage(
-      "ITHENA Performance Monitoring",
+      "intelliAIR",
     ),
     "areYouSure": MessageLookupByLibrary.simpleMessage("Are you sure?"),
     "asset": MessageLookupByLibrary.simpleMessage("Asset"),

@@ -9,6 +9,7 @@ abstract class ThingsboardImage {
       'assets/images/device-placeholder.svg';
   static const noDataImage = 'assets/images/no-data.svg';
   static const thingsboardBigLogo = 'ithena_with_title.png';
+  static const intelliAIRMobile = 'assets/images/intelli_air_mobile.png';
   static const deviceProvisioning = 'assets/images/provisioning.svg';
   static const deviceProvisioningDone = 'assets/images/provisioning-done.svg';
   static const deviceProvisioningError = 'assets/images/device-not-connected.svg';

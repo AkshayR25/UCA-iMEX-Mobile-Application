@@ -224,7 +224,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "anyType": MessageLookupByLibrary.simpleMessage("Any type"),
     "apiUsageState": MessageLookupByLibrary.simpleMessage("API Usage State"),
     "appTitle": MessageLookupByLibrary.simpleMessage(
-      "intelliAIR",
+      "intelliAIR mobile",
     ),
     "areYouSure": MessageLookupByLibrary.simpleMessage("Are you sure?"),
     "asset": MessageLookupByLibrary.simpleMessage("Asset"),

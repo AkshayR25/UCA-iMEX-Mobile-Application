@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:thingsboard_app/config/routes/router.dart';
@@ -168,18 +169,14 @@ class _LoginPageState extends TbPageState<LoginPage>
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(height: 50),
+                                    const SizedBox(height:35),
                                     Align(
-                                      child: Text(
-                                        S.of(context).loginNotification,
-                                        style: TbTextStyles.titleLarge.copyWith(
-                                          color: Colors.black.withValues(
-                                            alpha: .87,
-                                          ),
-                                        ),
+                                      child: Image.asset(
+                                        ThingsboardImage.intelliAIRMobile,
+                                        height:40,
                                       ),
                                     ),
-                                    const SizedBox(height: 20),
+                                    const SizedBox(height: 5),
                                     if (state.oAuthClients.isNotEmpty)
                                       _buildOAuth2Buttons(state.oAuthClients),
                                     Visibility(

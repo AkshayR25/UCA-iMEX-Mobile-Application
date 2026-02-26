@@ -57,7 +57,7 @@ class S {
   /// `ITHENA Performance Monitoring`
   String get appTitle {
     return Intl.message(
-      'intelliAIR',
+      'intelliAIR mobile',
       name: 'appTitle',
       desc: '',
       args: [],

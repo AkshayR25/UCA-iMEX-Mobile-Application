@@ -12,6 +12,7 @@ import 'package:thingsboard_app/thingsboard_client.dart';
 import 'package:thingsboard_app/utils/services/device_info/i_device_info_service.dart';
 import 'package:thingsboard_app/utils/services/layouts/i_layout_service.dart';
 import 'package:thingsboard_app/utils/services/notification_service.dart';
+import 'package:thingsboard_app/modules/more/support_manual_page.dart';
 
 
 class MorePage extends TbContextWidget {
@@ -103,8 +104,28 @@ class _MorePageState extends TbContextState<MorePage> {
               ),
             )
             .toList();
+
+    // Static "Support Manual" item - always last in the menu
+    widgets.add(
+      MoreMenuItemWidget(
+        TbMainNavigationItem(
+          title: 'User Manual',
+          icon: Icons.menu_book,
+          page: const SizedBox.shrink(),
+          path: '',
+        ),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => const SupportManualPage(),
+            ),
+          );
+        },
+      ),
+    );
+
     return SingleChildScrollView(
-      child: Column(spacing: 16 ,children: widgets),
+      child: Column(spacing: 16, children: widgets),
     );
   }
 

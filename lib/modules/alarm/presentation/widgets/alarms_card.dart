@@ -129,25 +129,25 @@ class _AlarmCardState extends TbContextState<AlarmCard> {
                           ),
                         ),
                       ),
-                      CircleAvatar(
-                        radius: 16,
-                        backgroundColor: Theme.of(
-                          context,
-                        ).primaryColor.withValues(alpha: .06),
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.more_vert,
-                            size: 18,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          padding: const EdgeInsets.all(7.0),
-                          onPressed:
-                              () => getIt<ThingsboardAppRouter>().navigateTo(
-                                // translate-me-ignore-next-line
-                                '/alarmDetails/${widget.alarm.id?.id}',
-                              ),
-                        ),
-                      ),
+                      // CircleAvatar(
+                      //   radius: 16,
+                      //   backgroundColor: Theme.of(
+                      //     context,
+                      //   ).primaryColor.withValues(alpha: .06),
+                      //   child: IconButton(
+                      //     icon: Icon(
+                      //       Icons.more_vert,
+                      //       size: 18,
+                      //       color: Theme.of(context).primaryColor,
+                      //     ),
+                      //     padding: const EdgeInsets.all(7.0),
+                      //     onPressed:
+                      //         () => getIt<ThingsboardAppRouter>().navigateTo(
+                      //           // translate-me-ignore-next-line
+                      //           '/alarmDetails/${widget.alarm.id?.id}',
+                      //         ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

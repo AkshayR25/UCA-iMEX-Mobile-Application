@@ -16,9 +16,13 @@ import 'package:thingsboard_app/thingsboard_app.dart';
 import 'package:thingsboard_app/utils/services/firebase/i_firebase_service.dart';
 import 'package:thingsboard_app/utils/services/local_database/i_local_database_service.dart';
 import 'package:universal_platform/universal_platform.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
  final WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+ await SystemChrome.setPreferredOrientations([
+   DeviceOrientation.portraitUp,
+ ]);
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Hive.initFlutter();
   Hive.registerAdapter(RegionAdapter());

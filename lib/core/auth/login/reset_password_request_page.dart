@@ -73,16 +73,18 @@ class _ResetPasswordRequestPageState
                               ),
                             ),
                             const Spacer(),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 16),
-                              ),
-                              onPressed: () {
-                                _requestPasswordReset();
-                              },
-                              child: Text(
-                                S.of(context).requestPasswordReset,
+                            SafeArea(
+                              top: false,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(vertical: 16),
+                                ),
+                                onPressed: () {
+                                  _requestPasswordReset();
+                                },
+                                child: Text(
+                                  S.of(context).requestPasswordReset,
+                                ),
                               ),
                             ),
                           ],

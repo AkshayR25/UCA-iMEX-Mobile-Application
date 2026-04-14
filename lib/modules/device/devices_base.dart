@@ -18,6 +18,37 @@ import 'package:thingsboard_app/utils/utils.dart';
 
 mixin DevicesBase on EntitiesBase<EntityData, EntityDataQuery> {
   final IOverlayService overlayService = getIt();
+
+  /// Cached future so the attribute API is called only once per widget instance.
+  Future<List<String>?>? _allowedDeviceNamesFuture;
+
+  Future<List<String>?> _getAllowedDeviceNames() {
+    return _allowedDeviceNamesFuture ??= _fetchAllowedDeviceNames();
+  }
+
+  Future<List<String>?> _fetchAllowedDeviceNames() async {
+    try {
+      final userId = tbClient.getAuthUser()?.userId;
+      if (userId == null) return null;
+
+      final attrs = await tbClient.getAttributeService().getAttributesByScope(
+        UserId(userId),
+        AttributeScope.SERVER_SCOPE.toShortString(),
+        ['area'],
+      );
+
+      final raw = attrs.isNotEmpty ? attrs.first.getValue()?.toString() : null;
+      if (raw == null || raw.isEmpty) return null;
+
+      final names = raw.split(',').map((e) => e.trim()).where((e) => e.isNotEmpty).toList();
+      debugPrint('[DevicesBase] allowed device names: $names');
+      return names;
+    } catch (e) {
+      debugPrint('[DevicesBase] failed to fetch user area attribute: $e');
+      return null;
+    }
+  }
+
   @override
   String get title => 'Devices';
 
@@ -25,8 +56,18 @@ mixin DevicesBase on EntitiesBase<EntityData, EntityDataQuery> {
   String get noItemsFoundText => 'No devices found';
 
   @override
-  Future<PageData<EntityData>> fetchEntities(EntityDataQuery dataQuery, {bool refresh = false}) {
-    return tbClient.getEntityQueryService().findEntityDataByQuery(dataQuery);
+  Future<PageData<EntityData>> fetchEntities(EntityDataQuery dataQuery, {bool refresh = false}) async {
+    final allowedNames = await _getAllowedDeviceNames();
+    final pageData = await tbClient.getEntityQueryService().findEntityDataByQuery(dataQuery);
+
+    if (allowedNames != null && allowedNames.isNotEmpty) {
+      pageData.data = pageData.data.where((device) {
+        final name = device.field('name');
+        return name != null && allowedNames.contains(name);
+      }).toList();
+    }
+
+    return pageData;
   }
 
   @override

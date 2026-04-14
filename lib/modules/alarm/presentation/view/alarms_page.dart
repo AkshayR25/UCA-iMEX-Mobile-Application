@@ -125,6 +125,7 @@ class _AlarmsPageState extends TbContextState<AlarmsPage>
     AlarmsDi.init(
       diScopeKey.toString(),
       tbClient: widget.tbContext.tbClient,
+      userEmail: widget.tbContext.userDetails?.email ?? '',
       typesScopeName: typesScopeName.toString(),
       assigneeScopeName: assigneeScopeName.toString(),
     );

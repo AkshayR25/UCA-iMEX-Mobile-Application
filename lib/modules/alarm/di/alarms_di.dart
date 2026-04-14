@@ -20,6 +20,7 @@ class AlarmsDi {
   static void init(
     String scopeName, {
     required ThingsboardClient tbClient,
+    required String userEmail,
     required String typesScopeName,
     required String assigneeScopeName,
   }) {
@@ -45,6 +46,7 @@ class AlarmsDi {
         locator.registerFactory(
           () => FetchAlarmsUseCase(
             repository: locator(),
+            userEmail: userEmail,
           ),
         );
 

@@ -4,6 +4,7 @@ import 'package:thingsboard_app/config/routes/router.dart';
 import 'package:thingsboard_app/core/context/tb_context_widget.dart';
 import 'package:thingsboard_app/locator.dart';
 import 'package:thingsboard_app/modules/alarm/alarms_base.dart';
+import 'package:thingsboard_app/modules/alarm/domain/usecases/alarms/fetch_alarms_usecase.dart';
 import 'package:thingsboard_app/thingsboard_client.dart';
 import 'package:thingsboard_app/utils/translation_utils.dart';
 import 'package:thingsboard_app/utils/ui/tb_text_styles.dart';
@@ -57,7 +58,7 @@ class _AlarmCardState extends TbContextState<AlarmCard> {
                                 Flexible(
                                   fit: FlexFit.tight,
                                   child: Text(
-                                    widget.alarm.type,
+                                    stripEmailFromAlarmType(widget.alarm.type),
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: TbTextStyles.labelLarge,

@@ -47,6 +47,6 @@ class _EntitiesListState<T, P> extends BaseEntitiesState<T, P> {
       ),
     );
 
-    return CustomScrollView(slivers: slivers);
+    return SafeArea(top: false, child: CustomScrollView(slivers: slivers));
   }
 }

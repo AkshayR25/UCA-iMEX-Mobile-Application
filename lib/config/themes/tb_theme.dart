@@ -38,7 +38,7 @@ ThemeData tbTheme = ThemeData(
     primary: _tbPrimaryColor,
     secondary: _tbSecondaryColor,
   ),
-  scaffoldBackgroundColor: const Color(0xFFF8FAFC),
+  scaffoldBackgroundColor: Colors.white,
   textTheme: tbTypography.black,
   primaryTextTheme: tbTypography.black,
   typography: tbTypography,
@@ -52,6 +52,7 @@ ThemeData tbTheme = ThemeData(
   cardTheme: CardThemeData(
     color: Colors.white,
     elevation: 2,
+
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(12),
     ),

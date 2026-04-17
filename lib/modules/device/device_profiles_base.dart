@@ -18,6 +18,59 @@ import 'package:thingsboard_app/utils/utils.dart';
 mixin DeviceProfilesBase on EntitiesBase<DeviceProfileInfo, PageLink> {
   final RefreshDeviceCounts refreshDeviceCounts = RefreshDeviceCounts();
 
+  /// Cached futures so the area attribute API and device list are fetched only once per widget instance.
+  Future<List<String>?>? _allowedDeviceNamesFuture;
+  Future<Set<String>?>? _allowedProfileTypesFuture;
+
+  Future<List<String>?> _getAllowedDeviceNames() =>
+      _allowedDeviceNamesFuture ??= _fetchAllowedDeviceNames();
+
+  Future<List<String>?> _fetchAllowedDeviceNames() async {
+    try {
+      final userId = tbClient.getAuthUser()?.userId;
+      if (userId == null) return null;
+
+      final attrs = await tbClient.getAttributeService().getAttributesByScope(
+        UserId(userId),
+        AttributeScope.SERVER_SCOPE.toShortString(),
+        ['area'],
+      );
+
+      final raw = attrs.isNotEmpty ? attrs.first.getValue()?.toString() : null;
+      if (raw == null || raw.isEmpty) return null;
+
+      return raw.split(',').map((e) => e.trim()).where((e) => e.isNotEmpty).toList();
+    } catch (e) {
+      debugPrint('[DeviceProfilesBase] failed to fetch user area attribute: $e');
+      return null;
+    }
+  }
+
+  Future<Set<String>?> _getAllowedProfileTypes() =>
+      _allowedProfileTypesFuture ??= _fetchAllowedProfileTypes();
+
+  Future<Set<String>?> _fetchAllowedProfileTypes() async {
+    final names = await _getAllowedDeviceNames();
+    if (names == null || names.isEmpty) return null;
+
+    try {
+      final query = EntityQueryApi.createDefaultDeviceQuery(pageSize: 1000);
+      final pageData = await tbClient.getEntityQueryService().findEntityDataByQuery(query);
+
+      final types = pageData.data
+          .where((d) => names.contains(d.field('name')))
+          .map((d) => d.field('type'))
+          .whereType<String>()
+          .toSet();
+
+      debugPrint('[DeviceProfilesBase] allowed profile types: $types');
+      return types.isEmpty ? null : types;
+    } catch (e) {
+      debugPrint('[DeviceProfilesBase] failed to derive allowed profile types: $e');
+      return null;
+    }
+  }
+
   @override
   String get title => 'Devices';
 
@@ -25,8 +78,15 @@ mixin DeviceProfilesBase on EntitiesBase<DeviceProfileInfo, PageLink> {
   String get noItemsFoundText => 'No devices found';
 
   @override
-  Future<PageData<DeviceProfileInfo>> fetchEntities(PageLink pageLink, {bool refresh = false}) {
-    return DeviceProfileCache.getDeviceProfileInfos(tbClient, pageLink, invalidateCache: refresh);
+  Future<PageData<DeviceProfileInfo>> fetchEntities(PageLink pageLink, {bool refresh = false}) async {
+    final allowedTypes = await _getAllowedProfileTypes();
+    final profiles = await DeviceProfileCache.getDeviceProfileInfos(tbClient, pageLink, invalidateCache: refresh);
+
+    if (allowedTypes != null && allowedTypes.isNotEmpty) {
+      profiles.data = profiles.data.where((p) => allowedTypes.contains(p.name)).toList();
+    }
+
+    return profiles;
   }
 
   @override
@@ -47,7 +107,7 @@ mixin DeviceProfilesBase on EntitiesBase<DeviceProfileInfo, PageLink> {
 
   @override
   Widget? buildHeading(BuildContext context) {
-    return AllDevicesCard(tbContext, refreshDeviceCounts);
+    return AllDevicesCard(tbContext, refreshDeviceCounts, allowedNamesFuture: _getAllowedDeviceNames());
   }
 
   @override
@@ -69,8 +129,9 @@ class RefreshDeviceCounts {
 }
 
 class AllDevicesCard extends TbContextWidget {
-  AllDevicesCard(super.tbContext, this.refreshDeviceCounts, {super.key});
+  AllDevicesCard(super.tbContext, this.refreshDeviceCounts, {super.key, this.allowedNamesFuture});
   final RefreshDeviceCounts refreshDeviceCounts;
+  final Future<List<String>?>? allowedNamesFuture;
 
   @override
   State<StatefulWidget> createState() => _AllDevicesCardState();
@@ -103,28 +164,33 @@ class _AllDevicesCardState extends TbContextState<AllDevicesCard> {
     super.dispose();
   }
 
-  Future<void> _countDevices() {
+  Future<void> _countDevices() async {
     _activeDevicesCount.add(null);
     _inactiveDevicesCount.add(null);
-    final Future<int> activeDevicesCount = EntityQueryApi.countDevices(
-      tbClient,
-      active: true,
-    );
-    final Future<int> inactiveDevicesCount = EntityQueryApi.countDevices(
-      tbClient,
-      active: false,
-    );
-    final Future<List<int>> countsFuture = Future.wait([
-      activeDevicesCount,
-      inactiveDevicesCount,
-    ]);
-    countsFuture.then((counts) {
-      if (mounted) {
-        _activeDevicesCount.add(counts[0]);
-        _inactiveDevicesCount.add(counts[1]);
-      }
-    });
-    return countsFuture;
+
+    final allowedNames = widget.allowedNamesFuture != null ? await widget.allowedNamesFuture : null;
+
+    Future<List<int>> countsFuture;
+    if (allowedNames != null && allowedNames.isNotEmpty) {
+      // Count only from the user's allowed devices
+      final query = EntityQueryApi.createDefaultDeviceQuery(pageSize: 1000);
+      countsFuture = tbClient.getEntityQueryService().findEntityDataByQuery(query).then((pageData) {
+        final filtered = pageData.data.where((d) => allowedNames.contains(d.field('name'))).toList();
+        final active = filtered.where((d) => d.attribute('active') == 'true').length;
+        final inactive = filtered.where((d) => d.attribute('active') != 'true').length;
+        return [active, inactive];
+      });
+    } else {
+      countsFuture = Future.wait([
+        EntityQueryApi.countDevices(tbClient, active: true),
+        EntityQueryApi.countDevices(tbClient, active: false),
+      ]);
+    }
+    final counts = await countsFuture;
+    if (mounted) {
+      _activeDevicesCount.add(counts[0]);
+      _inactiveDevicesCount.add(counts[1]);
+    }
   }
 
   @override

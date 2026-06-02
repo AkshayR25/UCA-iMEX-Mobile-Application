@@ -98,6 +98,9 @@ mixin DeviceProfilesBase on EntitiesBase<DeviceProfileInfo, PageLink> {
 
   @override
   Future<void> onRefresh() {
+    // Clear cached futures so pull-to-refresh re-fetches area filter from server
+    _allowedDeviceNamesFuture = null;
+    _allowedProfileTypesFuture = null;
     if (refreshDeviceCounts.onRefresh != null) {
       return refreshDeviceCounts.onRefresh!();
     } else {
@@ -107,7 +110,7 @@ mixin DeviceProfilesBase on EntitiesBase<DeviceProfileInfo, PageLink> {
 
   @override
   Widget? buildHeading(BuildContext context) {
-    return AllDevicesCard(tbContext, refreshDeviceCounts, allowedNamesFuture: _getAllowedDeviceNames());
+    return AllDevicesCard(tbContext, refreshDeviceCounts);
   }
 
   @override
@@ -129,9 +132,8 @@ class RefreshDeviceCounts {
 }
 
 class AllDevicesCard extends TbContextWidget {
-  AllDevicesCard(super.tbContext, this.refreshDeviceCounts, {super.key, this.allowedNamesFuture});
+  AllDevicesCard(super.tbContext, this.refreshDeviceCounts, {super.key});
   final RefreshDeviceCounts refreshDeviceCounts;
-  final Future<List<String>?>? allowedNamesFuture;
 
   @override
   State<StatefulWidget> createState() => _AllDevicesCardState();
@@ -164,11 +166,28 @@ class _AllDevicesCardState extends TbContextState<AllDevicesCard> {
     super.dispose();
   }
 
+  Future<List<String>?> _fetchAllowedNames() async {
+    try {
+      final userId = tbClient.getAuthUser()?.userId;
+      if (userId == null) return null;
+      final attrs = await tbClient.getAttributeService().getAttributesByScope(
+        UserId(userId),
+        AttributeScope.SERVER_SCOPE.toShortString(),
+        ['area'],
+      );
+      final raw = attrs.isNotEmpty ? attrs.first.getValue()?.toString() : null;
+      if (raw == null || raw.isEmpty) return null;
+      return raw.split(',').map((e) => e.trim()).where((e) => e.isNotEmpty).toList();
+    } catch (_) {
+      return null;
+    }
+  }
+
   Future<void> _countDevices() async {
     _activeDevicesCount.add(null);
     _inactiveDevicesCount.add(null);
 
-    final allowedNames = widget.allowedNamesFuture != null ? await widget.allowedNamesFuture : null;
+    final allowedNames = await _fetchAllowedNames();
 
     Future<List<int>> countsFuture;
     if (allowedNames != null && allowedNames.isNotEmpty) {

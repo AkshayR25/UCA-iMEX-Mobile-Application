@@ -57,6 +57,7 @@ mixin DevicesBase on EntitiesBase<EntityData, EntityDataQuery> {
 
   @override
   Future<PageData<EntityData>> fetchEntities(EntityDataQuery dataQuery, {bool refresh = false}) async {
+    if (refresh) _allowedDeviceNamesFuture = null;
     final allowedNames = await _getAllowedDeviceNames();
     final pageData = await tbClient.getEntityQueryService().findEntityDataByQuery(dataQuery);
 

@@ -4,6 +4,8 @@ abstract class ThingsboardImage {
   static const thingsboard = 'assets/images/ithena.png';
   static const thingsboardOuter = 'assets/images/thingsboard_outer.svg';
   static const thingsboardCenter = 'assets/images/ithena_center.png';
+  static const ucaLoaderRing = 'assets/images/uca_loader_ring.svg';
+  static const ucaWordmark = 'assets/images/uca_wordmark.png';
   static const dashboardPlaceholder = 'assets/images/dashboard-placeholder.svg';
   static const deviceProfilePlaceholder =
       'assets/images/device-placeholder.svg';

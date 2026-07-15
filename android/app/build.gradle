@@ -42,7 +42,7 @@ if (flutterVersionName == null) {
 }
 def customScheme = getDartDefineValue('thingsboardOAuth2CallbackUrlScheme') ?: 'com.iserv.uca.auth'
 def customLabel = getDartDefineValue('androidApplicationName') ?: 'NexusAir Mobile'
-def appLinksUrlHost = getDartDefineValue('appLinksUrlHost') ?: 'www.nexusair.ucaair.com'
+def appLinksUrlHost = getDartDefineValue('appLinksUrlHost') ?: 'nexusair.ucaair.com'
 def webPathPrefix = getDartDefineValue('webPathPrefix') ?: '/api/noauth/qr'
 def appLinksUrlScheme = getDartDefineValue('appLinksUrlScheme') ?: 'http'
 android {

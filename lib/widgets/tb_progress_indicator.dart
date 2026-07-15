@@ -5,16 +5,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:thingsboard_app/constants/assets_path.dart';
 
 class TbProgressIndicator extends ProgressIndicator {
-
   const TbProgressIndicator({
     super.key,
     this.size = 36.0,
     super.valueColor,
     super.semanticsLabel,
     super.semanticsValue,
-  }) : super(
-          value: null,
-        );
+  }) : super(value: null);
   final double size;
 
   @override
@@ -58,21 +55,24 @@ class _TbProgressIndicatorState extends State<TbProgressIndicator>
     return Stack(
       alignment: Alignment.center,
       children: [
+        // Static "UCA" wordmark in the center, tinted to the theme color.
         ColorFiltered(
           colorFilter: ColorFilter.mode(
             widget._getValueColor(context),
             BlendMode.srcIn,
           ),
           child: Image.asset(
-            ThingsboardImage.thingsboardCenter,
-            height: widget.size * 0.5,
-            width: widget.size * 0.5,
+            ThingsboardImage.ucaWordmark,
+            height: widget.size * 0.4,
+            width: widget.size * 0.4,
+            fit: BoxFit.contain,
           ),
         ),
+        // Rotating two-arrow ring echoing the UCA logo's circular arrows.
         AnimatedBuilder(
           animation: _rotation,
           child: SvgPicture.asset(
-            ThingsboardImage.thingsboardOuter,
+            ThingsboardImage.ucaLoaderRing,
             height: widget.size,
             width: widget.size,
             colorFilter: ColorFilter.mode(

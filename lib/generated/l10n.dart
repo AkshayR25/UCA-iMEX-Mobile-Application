@@ -54,10 +54,10 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `ITHENA Performance Monitoring`
+  /// `NexusAir Mobile`
   String get appTitle {
     return Intl.message(
-      'intelliAIR mobile',
+      'NexusAir Mobile',
       name: 'appTitle',
       desc: '',
       args: [],

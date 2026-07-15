@@ -198,7 +198,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "anyType": MessageLookupByLibrary.simpleMessage("Any type"),
     "apiUsageState": MessageLookupByLibrary.simpleMessage("API使用狀態"),
-    "appTitle": MessageLookupByLibrary.simpleMessage("Thingsboard"),
+    "appTitle": MessageLookupByLibrary.simpleMessage("NexusAir Mobile"),
     "areYouSure": MessageLookupByLibrary.simpleMessage("您確定嗎？"),
     "asset": MessageLookupByLibrary.simpleMessage("Asset"),
     "assetName": MessageLookupByLibrary.simpleMessage("資產名稱"),

@@ -1,5 +1,5 @@
 {
-   "appTitle": "Thingsboard",
+   "appTitle": "NexusAir Mobile",
   "home": "主页",
   "alarms": "{count, plural, =1{告警} other{告警}}",
   "@alarms": {

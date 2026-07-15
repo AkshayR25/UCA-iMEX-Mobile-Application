@@ -1,5 +1,5 @@
 {
-  "appTitle": "intelliAIR mobile",
+  "appTitle": "NexusAir Mobile",
   "home": "Home",
   "devices": "{count, plural, =1{Device} other{Devices}}",
   "@devices": {

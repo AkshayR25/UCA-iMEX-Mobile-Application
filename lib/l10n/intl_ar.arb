@@ -1,5 +1,5 @@
 {
-  "appTitle": "ThingsBoard",
+  "appTitle": "NexusAir Mobile",
   "home": "الرئيسية",
 "devices": "{count, plural, =1{Device} other{Devices}}",
   "@devices": {

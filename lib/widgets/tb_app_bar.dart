@@ -61,7 +61,7 @@ class _TbAppBarState extends TbContextState<TbAppBar> {
   AppBar buildDefaultBar() {
     return AppBar(
       titleTextStyle: TbTextStyles.titleXs.copyWith(
-        color: AppColors.textPrimary,
+        color: Theme.of(context).appBarTheme.foregroundColor ?? AppColors.textPrimary,
       ),
       leading:
           widget.canGoBack || Navigator.of(context).canPop()

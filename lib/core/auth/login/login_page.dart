@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:thingsboard_app/config/routes/router.dart';
@@ -15,7 +14,6 @@ import 'package:thingsboard_app/constants/assets_path.dart';
 import 'package:thingsboard_app/core/auth/login/bloc/bloc.dart';
 import 'package:thingsboard_app/core/auth/login/di/login_di.dart';
 import 'package:thingsboard_app/core/auth/login/login_page_background.dart';
-import 'package:thingsboard_app/core/auth/login/select_region/choose_region_screen.dart';
 import 'package:thingsboard_app/core/auth/login/select_region/model/region.dart';
 import 'package:thingsboard_app/core/auth/oauth2/i_oauth2_client.dart';
 import 'package:thingsboard_app/core/context/tb_context_widget.dart';
@@ -118,65 +116,15 @@ class _LoginPageState extends TbPageState<LoginPage>
                                   crossAxisAlignment:
                                       CrossAxisAlignment.stretch,
                                   children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Image.asset(
-                                            ThingsboardImage.thingsBoardWithTitle,
-                                            height:65,
-                                          ),
-
-                                        const SizedBox(height:35),
-                                        Visibility(
-                                          visible: selectedRegion != null,
-                                          child: TextButton(
-                                            onPressed: () {
-                                              tbContext.showFullScreenDialog(
-                                                ChooseRegionScreen(
-                                                  tbContext,
-                                                  nASelected:
-                                                      selectedRegion ==
-                                                      Region.northAmerica,
-                                                  europeSelected:
-                                                      selectedRegion ==
-                                                      Region.europe,
-                                                ),
-                                              );
-                                            },
-                                            child: Row(
-                                              children: [
-                                                Text(
-                                                  selectedRegion
-                                                          ?.regionToString(context) ??
-                                                      '',
-                                                  style: TbTextStyles.bodyLarge,
-                                                ),
-                                                const SizedBox(width: 6),
-                                                const Padding(
-                                                  padding: EdgeInsets.only(
-                                                    top: 4,
-                                                  ),
-                                                  child: Icon(
-                                                    Icons
-                                                        .arrow_forward_ios_rounded,
-                                                    size: 12,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height:35),
+                                    const SizedBox(height: 20),
                                     Align(
+                                      alignment: Alignment.center,
                                       child: Image.asset(
-                                        ThingsboardImage.intelliAIRMobile,
-                                        height:40,
+                                        ThingsboardImage.presriteLogo,
+                                        height: 40,
                                       ),
                                     ),
-                                    const SizedBox(height: 5),
+                                    const SizedBox(height: 32),
                                     if (state.oAuthClients.isNotEmpty)
                                       _buildOAuth2Buttons(state.oAuthClients),
                                     Visibility(

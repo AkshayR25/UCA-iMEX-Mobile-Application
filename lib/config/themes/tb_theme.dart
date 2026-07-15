@@ -1,39 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:thingsboard_app/utils/transition/page_transitions.dart';
 
-const int _tbPrimaryColorValue = 0xFF113262; // UCA Dark Blue
+const int _tbPrimaryColorValue = 0xFF000000; // Presrite Black
 const Color _tbPrimaryColor = Color(_tbPrimaryColorValue);
-const Color _tbSecondaryColor = Color(0xFF7EA0C3); // UCA Light Blue
-const Color _tbDarkPrimaryColor = Color(0xFF7EA0C3); // Slightly lighter for dark mode
+const Color _tbSecondaryColor = Color(0xFF555555); // Presrite Grey
+const Color _tbDarkPrimaryColor = Color(0xFF333333);
 const Color _tbGreyColor = Color(0xFFB2B3B5);
 
 Color get appPrimaryColor => _tbPrimaryColor;
 
-const int _tbTextColorValue = 0xFF1F1F1F;
-const Color _tbTextColor = Color(_tbTextColorValue);
 
 Typography tbTypography = Typography.material2018();
 
-const tbMatIndigo = MaterialColor(_tbPrimaryColorValue, <int, Color>{
-  50: Color(0xFFE3EAF2),
-  100: Color(0xFFB9CADF),
-  200: Color(0xFF8BA7CA),
-  300: Color(0xFF5C84B5),
-  400: Color(0xFF3969A5),
-  500: _tbPrimaryColor,
-  600: Color(0xFF0F2E58),
-  700: Color(0xFF0C274E),
-  800: Color(0xFF0A2144),
-  900: Color(0xFF061530),
+const tbMatBlack = MaterialColor(_tbPrimaryColorValue, <int, Color>{
+  50: Color(0xFFE8E8E8),
+  100: Color(0xFFC5C5C5),
+  200: Color(0xFF9F9F9F),
+  300: Color(0xFF787878),
+  400: Color(0xFF5B5B5B),
+  500: Color(0xFF3D3D3D),
+  600: Color(0xFF373737),
+  700: Color(0xFF2F2F2F),
+  800: Color(0xFF272727),
+  900: Color(0xFF000000),
 });
 
-const tbDarkMatIndigo = tbMatIndigo;
+const tbDarkMatBlack = tbMatBlack;
 
-final ThemeData theme = ThemeData(primarySwatch: tbMatIndigo);
+final ThemeData theme = ThemeData(primarySwatch: tbMatBlack);
 
 ThemeData tbTheme = ThemeData(
   useMaterial3: false,
-  primarySwatch: tbMatIndigo,
+  primarySwatch: tbMatBlack,
   colorScheme: theme.colorScheme.copyWith(
     primary: _tbPrimaryColor,
     secondary: _tbSecondaryColor,
@@ -44,9 +42,16 @@ ThemeData tbTheme = ThemeData(
   typography: tbTypography,
 
   appBarTheme: const AppBarTheme(
-    backgroundColor: Colors.white,
-    foregroundColor: _tbTextColor,
-    iconTheme: IconThemeData(color: _tbTextColor),
+    backgroundColor: Colors.black,
+    foregroundColor: Colors.white,
+    iconTheme: IconThemeData(color: Colors.white),
+    titleTextStyle: TextStyle(
+      color: Colors.white,
+      fontSize: 20,
+      fontWeight: FontWeight.w500,
+      letterSpacing: 0.15,
+    ),
+    toolbarTextStyle: TextStyle(color: Colors.white),
   ),
 
   cardTheme: CardThemeData(
@@ -59,8 +64,8 @@ ThemeData tbTheme = ThemeData(
   ),
 
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    backgroundColor: Colors.white,
-    selectedItemColor: _tbPrimaryColor,
+    backgroundColor: Colors.black,
+    selectedItemColor: Colors.white,
     unselectedItemColor: _tbGreyColor,
     showSelectedLabels: true,
     showUnselectedLabels: true,
@@ -75,12 +80,12 @@ ThemeData tbTheme = ThemeData(
 );
 
 final ThemeData darkTheme = ThemeData(
-  primarySwatch: tbDarkMatIndigo,
+  primarySwatch: tbDarkMatBlack,
   brightness: Brightness.dark,
 );
 
 ThemeData tbDarkTheme = ThemeData(
-  primarySwatch: tbDarkMatIndigo,
+  primarySwatch: tbDarkMatBlack,
   brightness: Brightness.dark,
   colorScheme: darkTheme.colorScheme.copyWith(
     primary: _tbDarkPrimaryColor,

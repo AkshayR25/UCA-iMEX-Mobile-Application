@@ -46,6 +46,7 @@ class AlarmsDi {
         locator.registerFactory(
           () => FetchAlarmsUseCase(
             repository: locator(),
+            tbClient: tbClient,
             userEmail: userEmail,
           ),
         );

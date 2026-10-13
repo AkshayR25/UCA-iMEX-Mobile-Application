@@ -53,10 +53,10 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAiWuYhn_Zc9gj0kr8FqyKo3F9kEtcxKHc',
-    appId: '1:1061327898101:android:f5db1de9f7108452064cbc',
-    messagingSenderId: '1061327898101',
-    projectId: 'iserv-cmms',
-    storageBucket: 'iserv-cmms.firebasestorage.app',
+    apiKey: 'AIzaSyBxQJBDxqLoG_rkDxDEqxQjS6m1ye1X_uA',
+    appId: '1:891672543628:android:625bd927a72df0197d96a9',
+    messagingSenderId: '891672543628',
+    projectId: 'imex-v5',
+    storageBucket: 'imex-v5.firebasestorage.app',
   );
 }

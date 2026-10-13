@@ -5,4 +5,5 @@ abstract final class ThingsboardAppConstants {
   static const thingsboardAndroidAppSecret = "ejVsZkppRXNWYkZBQ3lsVkIxUnVaaXhXbkoxeGloU0tWNHJNMWN2WEZQWWVIZ2hDRlBnd2RlRHBJalZtWGphQg==";
   static const ignoreRegionSelection = thingsBoardApiEndpoint != '';
   static const supportManualPdfUrl = 'https://ithena.ai/imex/mobilehelp.pdf';
+  static const showSupportManual = false;
 }

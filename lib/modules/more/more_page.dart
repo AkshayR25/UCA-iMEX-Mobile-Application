@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:thingsboard_app/config/routes/router.dart';
+import 'package:thingsboard_app/constants/app_constants.dart';
 import 'package:thingsboard_app/constants/enviroment_variables.dart';
 import 'package:thingsboard_app/core/context/tb_context_widget.dart';
 import 'package:thingsboard_app/core/usecases/user_details_usecase.dart';
@@ -13,7 +14,6 @@ import 'package:thingsboard_app/utils/services/device_info/i_device_info_service
 import 'package:thingsboard_app/utils/services/layouts/i_layout_service.dart';
 import 'package:thingsboard_app/utils/services/notification_service.dart';
 import 'package:thingsboard_app/modules/more/support_manual_page.dart';
-
 
 class MorePage extends TbContextWidget {
   MorePage(super.tbContext, {super.key});
@@ -106,27 +106,25 @@ class _MorePageState extends TbContextState<MorePage> {
             .toList();
 
     // Static "Support Manual" item - always last in the menu
-    widgets.add(
-      MoreMenuItemWidget(
-        TbMainNavigationItem(
-          title: 'User Manual',
-          icon: Icons.menu_book,
-          page: const SizedBox.shrink(),
-          path: '',
+    if (ThingsboardAppConstants.showSupportManual) {
+      widgets.add(
+        MoreMenuItemWidget(
+          TbMainNavigationItem(
+            title: 'User Manual',
+            icon: Icons.menu_book,
+            page: const SizedBox.shrink(),
+            path: '',
+          ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const SupportManualPage()),
+            );
+          },
         ),
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (_) => const SupportManualPage(),
-            ),
-          );
-        },
-      ),
-    );
+      );
+    }
 
-    return SingleChildScrollView(
-      child: Column(spacing: 16, children: widgets),
-    );
+    return SingleChildScrollView(child: Column(spacing: 16, children: widgets));
   }
 
   @override

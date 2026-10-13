@@ -54,14 +54,9 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `ITHENA Performance Monitoring`
+  /// `ITHENA iMEX`
   String get appTitle {
-    return Intl.message(
-      'intelliAIR mobile',
-      name: 'appTitle',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('ITHENA iMEX', name: 'appTitle', desc: '', args: []);
   }
 
   /// `Home`

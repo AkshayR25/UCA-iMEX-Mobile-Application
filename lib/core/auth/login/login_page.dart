@@ -120,8 +120,8 @@ class _LoginPageState extends TbPageState<LoginPage>
                                     Align(
                                       alignment: Alignment.center,
                                       child: Image.asset(
-                                        ThingsboardImage.presriteLogo,
-                                        height: 40,
+                                        ThingsboardImage.brandLogo,
+                                        height: 56,
                                       ),
                                     ),
                                     const SizedBox(height: 32),

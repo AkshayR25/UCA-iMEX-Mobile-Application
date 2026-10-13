@@ -1,16 +1,16 @@
 abstract class ThingsboardImage {
   static const thingsBoardWithTitle =
-      'assets/images/presrite_logo.png';
-  static const thingsboard = 'assets/images/presrite_logo.png';
+      'assets/images/ithena_imex_logo.png';
+  static const thingsboard = 'assets/images/ithena_imex_logo.png';
   static const thingsboardOuter = 'assets/images/thingsboard_outer.svg';
-  static const thingsboardCenter = 'assets/images/presrite_center.png';
+  static const thingsboardCenter = 'assets/images/ithena_imex_icon.png';
   static const dashboardPlaceholder = 'assets/images/dashboard-placeholder.svg';
   static const deviceProfilePlaceholder =
       'assets/images/device-placeholder.svg';
   static const noDataImage = 'assets/images/no-data.svg';
-  static const thingsboardBigLogo = 'assets/images/presrite_logo.png';
-  static const intelliAIRMobile = 'assets/images/presrite_logo.png';
-  static const presriteLogo = 'assets/images/presrite.png';
+  static const thingsboardBigLogo = 'assets/images/ithena_imex_logo.png';
+  static const intelliAIRMobile = 'assets/images/ithena_imex_logo.png';
+  static const brandLogo = 'assets/images/ithena_imex_logo_tagline.png';
   static const deviceProvisioning = 'assets/images/provisioning.svg';
   static const deviceProvisioningDone = 'assets/images/provisioning-done.svg';
   static const deviceProvisioningError = 'assets/images/device-not-connected.svg';

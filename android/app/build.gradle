@@ -40,9 +40,9 @@ def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
-def customScheme = getDartDefineValue('thingsboardOAuth2CallbackUrlScheme') ?: 'com.presrite.app.auth'
-def customLabel = getDartDefineValue('androidApplicationName') ?: 'Presrite'
-def appLinksUrlHost = getDartDefineValue('appLinksUrlHost') ?: 'com.presrite.app'
+def customScheme = getDartDefineValue('thingsboardOAuth2CallbackUrlScheme') ?: 'ai.ithena.imex.auth'
+def customLabel = getDartDefineValue('androidApplicationName') ?: 'ITHENA iMEX'
+def appLinksUrlHost = getDartDefineValue('appLinksUrlHost') ?: 'iserv-demov2.ithena.app'
 def webPathPrefix = getDartDefineValue('webPathPrefix') ?: '/api/noauth/qr'
 def appLinksUrlScheme = getDartDefineValue('appLinksUrlScheme') ?: 'http'
 android {
@@ -54,7 +54,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId getDartDefineValue('androidApplicationId') ?: "com.presrite.app"
+        applicationId getDartDefineValue('androidApplicationId') ?: "ai.ithena.imex"
         minSdkVersion 24
         targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()

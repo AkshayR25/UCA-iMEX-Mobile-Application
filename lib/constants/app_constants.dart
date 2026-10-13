@@ -1,5 +1,5 @@
 abstract final class ThingsboardAppConstants {
-  static const thingsBoardApiEndpoint = "https://2b00-103-216-144-118.ngrok-free.app";
+  static const thingsBoardApiEndpoint = "http://192.168.1.10:8080";
   static const thingsboardOAuth2CallbackUrlScheme = "com.presrite.app.auth";
   static const thingsboardIOSAppSecret = String.fromEnvironment('thingsboardIosAppSecret');
   static const thingsboardAndroidAppSecret = "ejVsZkppRXNWYkZBQ3lsVkIxUnVaaXhXbkoxeGloU0tWNHJNMWN2WEZQWWVIZ2hDRlBnd2RlRHBJalZtWGphQg==";

@@ -6,7 +6,13 @@ const Color _tbPrimaryColor = Color(_tbPrimaryColorValue);
 const Color _tbSecondaryColor = Color(0xFF04568A); // ITHENA Deep Blue
 const Color _tbDarkPrimaryColor = Color(0xFF4FA8DC); // Lighter blue for dark mode
 const Color _tbGreyColor = Color(0xFFC3C6C9); // ITHENA Grey
-const Color _tbDarkGreyColor = Color(0xFF6E757C); // Darker ITHENA Grey for text on white
+
+// iMEX app colours (server colour theme "Teal")
+const imexBar = Color(0xFF0B3F45); // status bar, tab bar
+const imexBarDeep = Color(0xFF062A2F); // Android navigation bar
+const imexAccent = Color(0xFF5EEAD4); // selected tab
+const imexMuted = Color(0xB3FFFFFF); // other tabs (white 70 %)
+const imexPage = Color(0xFF0B1220); // behind the pages while they load
 
 Color get appPrimaryColor => _tbPrimaryColor;
 
@@ -65,9 +71,9 @@ ThemeData tbTheme = ThemeData(
   ),
 
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    backgroundColor: Colors.white,
-    selectedItemColor: _tbPrimaryColor,
-    unselectedItemColor: _tbDarkGreyColor,
+    backgroundColor: imexBar,
+    selectedItemColor: imexAccent,
+    unselectedItemColor: imexMuted,
     showSelectedLabels: true,
     showUnselectedLabels: true,
   ),

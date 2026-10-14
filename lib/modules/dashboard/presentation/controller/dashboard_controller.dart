@@ -79,6 +79,12 @@ windowMessage['data'] = data;
   Future<void> tryLocalNavigation(String? path, {required bool? home}) async {
     tbContext.log.debug('tryLocalNavigation($path)');
 
+    // iMEX: "Sign out" on the More page
+    if (path == '/logout') {
+      await tbContext.logout();
+      return;
+    }
+
     if (path != null && path != '/home') {
       final parts = path
           .split('/')

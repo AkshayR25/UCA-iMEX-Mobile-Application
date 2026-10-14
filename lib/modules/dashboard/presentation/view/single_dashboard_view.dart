@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:thingsboard_app/config/themes/tb_theme.dart';
 import 'package:thingsboard_app/core/context/tb_context_widget.dart';
 import 'package:thingsboard_app/modules/dashboard/di/dashboards_di.dart';
 import 'package:thingsboard_app/modules/dashboard/presentation/controller/dashboard_controller.dart';
@@ -38,6 +39,8 @@ class _SingleDashboardViewState extends TbContextState<SingleDashboardView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // iMEX: dark page colour behind dashboards while they load
+      backgroundColor: imexPage,
       // appBar: TbAppBar(
       //   tbContext,
       //   leading: BackButton(

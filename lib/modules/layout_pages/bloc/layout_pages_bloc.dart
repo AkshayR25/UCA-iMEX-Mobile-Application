@@ -55,7 +55,10 @@ class LayoutPagesBloc extends Bloc<LayoutPagesEvent, LayoutPagesState> {
     BottomBarFetchEvent event,
     Emitter emit,
   ) async {
-    final items = layoutService.getCachedPageLayouts();
+    final all = layoutService.getCachedPageLayouts();
+    final imexMore = all.where(_isImexMore).toList();
+    // no duplicate "More" tab on tablets
+    final items = all.where((p) => !_isImexMore(p)).toList();
     layoutService.setBottomBarItems(
       items
           .map(
@@ -84,7 +87,10 @@ class LayoutPagesBloc extends Bloc<LayoutPagesEvent, LayoutPagesState> {
         page: MainItemWidget(
           tbContext,
           path: '/more',
-          child: MorePage(tbContext),
+          child: imexMore.isNotEmpty
+              ? SingleDashboardView(tbContext, id: imexMore.first.dashboardId!)
+              // fallback: the native More list
+              : MorePage(tbContext),
         ),
         title: S.of(event.context).more,
         icon: Icons.menu_outlined,
@@ -94,6 +100,10 @@ class LayoutPagesBloc extends Bloc<LayoutPagesEvent, LayoutPagesState> {
 
     emit(BottomBarDataState(items: layoutService.getBottomBarItems()));
   }
+
+  // iMEX: the Mobile Center page labelled "More" is our own More page (a dashboard)
+  static bool _isImexMore(PageLayout p) =>
+      p.dashboardId != null && (p.label ?? '').trim().toLowerCase() == 'more';
 
   Widget getWidget(PageLayout pageLayout) {
     switch (pageLayout.id) {

@@ -36,7 +36,6 @@ class _ProfilePageState extends TbPageState<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: TbAppBar(
         tbContext,
         title:  Text(S.of(context).profile),
@@ -123,10 +122,13 @@ class _ProfilePageState extends TbPageState<ProfilePage> {
             valueListenable: _isLoadingNotifier,
             builder: (BuildContext context, bool loading, child) {
               if (loading) {
-                return const SizedBox.expand(
+                return SizedBox.expand(
                   child: ColoredBox(
-                    color: Color(0x99FFFFFF),
-                    child: Center(child: TbProgressIndicator(size: 50.0)),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .surface
+                        .withValues(alpha: 0.6),
+                    child: const Center(child: TbProgressIndicator(size: 50.0)),
                   ),
                 );
               } else {

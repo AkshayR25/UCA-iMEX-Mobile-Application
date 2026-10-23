@@ -32,6 +32,8 @@ class TbNavigationBarWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: backgroundColor ?? bottomTheme.backgroundColor,
         gradient: gradient,
+        // a hairline keeps the light tab bar apart from a light page
+        border: Border(top: BorderSide(color: Theme.of(context).dividerColor)),
       ),
       child: SingleChildScrollView(
         child: Row(

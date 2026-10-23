@@ -48,4 +48,14 @@ class LocalDatabaseService implements ILocalDatabaseService {
   Future<void> deleteInitialAppLink()  {
     return storage.deleteItem(DatabaseKeys.initialAppLink);
   }
+
+  @override
+  Future<String?> getImexTheme() async {
+    return await storage.getItem(DatabaseKeys.imexTheme) as String?;
+  }
+
+  @override
+  Future<void> setImexTheme(String json) {
+    return storage.setItem(DatabaseKeys.imexTheme, json);
+  }
 }

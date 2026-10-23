@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:thingsboard_app/core/context/tb_context_widget.dart';
-import 'package:thingsboard_app/widgets/tb_progress_indicator.dart';
+import 'package:thingsboard_app/widgets/imex_startup_screen.dart';
 
 class ThingsboardInitApp extends TbPageWidget {
   ThingsboardInitApp(super.tbContext, {super.key});
@@ -18,10 +18,6 @@ class _ThingsboardInitAppState extends TbPageState<ThingsboardInitApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      color: Colors.white,
-      child: const TbProgressIndicator(size: 50.0),
-    );
+    return const ImexStartupScreen();
   }
 }

@@ -16,7 +16,7 @@ class NotificationIcon extends StatelessWidget {
     return iconData;
   }
 
-  Color _toColor(String? data) {
+  Color? _toColor(String? data) {
     if (data != null) {
       var hexColor = data.replaceAll('#', '');
       if (hexColor.length == 6) {
@@ -31,7 +31,7 @@ class NotificationIcon extends StatelessWidget {
       }
     }
 
-    return Colors.black54;
+    return null;
   }
 
   Widget _toIcon(Map<String, dynamic> data) {
@@ -51,7 +51,7 @@ class NotificationIcon extends StatelessWidget {
       );
     }
 
-    return const Icon(Icons.notifications, color: Colors.black54);
+    return const Icon(Icons.notifications);
   }
 }
 

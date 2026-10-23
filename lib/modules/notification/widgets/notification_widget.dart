@@ -115,7 +115,7 @@ class NotificationWidget extends StatelessWidget {
                                       onReadNotification(notification.id!.id!),
                               icon: Icon(
                                 Icons.check_circle_outline,
-                                color: Colors.black.withValues(alpha: 0.38),
+                                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38),
                               ),
                             ),
                           ),

@@ -45,10 +45,10 @@ class NotificationsList extends StatelessWidget {
             ),
           );
         },
-        firstPageProgressIndicatorBuilder: (_) => const SizedBox.expand(
+        firstPageProgressIndicatorBuilder: (context) => SizedBox.expand(
           child: ColoredBox(
-            color: Color(0x99FFFFFF),
-            child: Center(
+            color: Theme.of(context).colorScheme.surface.withValues(alpha: 0.6),
+            child: const Center(
               child: TbProgressIndicator(
                 size: 50.0,
               ),

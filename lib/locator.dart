@@ -1,6 +1,7 @@
 import 'package:event_bus/event_bus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:thingsboard_app/config/routes/router.dart';
+import 'package:thingsboard_app/config/themes/imex_theme.dart';
 import 'package:thingsboard_app/core/context/tb_context.dart';
 import 'package:thingsboard_app/core/logger/tb_logger.dart';
 import 'package:thingsboard_app/core/usecases/user_details_usecase.dart';
@@ -49,6 +50,9 @@ Future<void> setUpRootDependencies() async {
         storage: getIt(),
         logger: getIt(),
       ),
+    )
+    ..registerLazySingleton<ImexThemeController>(
+      () => ImexThemeController(databaseService: getIt(), logger: getIt()),
     )
     ..registerLazySingleton<IEndpointService>(
       () => EndpointService(

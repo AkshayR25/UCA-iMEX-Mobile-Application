@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FilterSegmentedButton<T> extends StatelessWidget {
-  FilterSegmentedButton({
+  const FilterSegmentedButton({
     required this.segments,
     required this.selected,
     required this.onSelectionChanged,
@@ -12,21 +12,21 @@ class FilterSegmentedButton<T> extends StatelessWidget {
   final T selected;
   final void Function(T) onSelectionChanged;
 
-  final selectedTextStyle = const TextStyle(
-    color: Colors.white,
-    fontWeight: FontWeight.w500,
-  );
-  final unselectedTextStyle = TextStyle(
-    color: Colors.black.withValues(alpha: 0.38),
-    fontWeight: FontWeight.w400,
-  );
-
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final selectedTextStyle = TextStyle(
+      color: scheme.onPrimary,
+      fontWeight: FontWeight.w500,
+    );
+    final unselectedTextStyle = TextStyle(
+      color: scheme.onSurface.withValues(alpha: 0.38),
+      fontWeight: FontWeight.w400,
+    );
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100),
-        color: Colors.black.withValues(alpha: 0.06),
+        color: scheme.onSurface.withValues(alpha: 0.06),
       ),
       height: 32,
       padding: const EdgeInsets.all(2),

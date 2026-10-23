@@ -3,6 +3,8 @@ abstract class ThingsboardImage {
       'assets/images/ithena_imex_logo.png';
   static const thingsboard = 'assets/images/ithena_imex_logo.png';
   static const thingsboardOuter = 'assets/images/thingsboard_outer.svg';
+  // the loader's spinning ring (same as the sopakco app)
+  static const loaderRing = 'assets/images/loading.svg';
   static const thingsboardCenter = 'assets/images/ithena_imex_icon.png';
   static const dashboardPlaceholder = 'assets/images/dashboard-placeholder.svg';
   static const deviceProfilePlaceholder =
@@ -11,6 +13,7 @@ abstract class ThingsboardImage {
   static const thingsboardBigLogo = 'assets/images/ithena_imex_logo.png';
   static const intelliAIRMobile = 'assets/images/ithena_imex_logo.png';
   static const brandLogo = 'assets/images/ithena_imex_logo_tagline.png';
+  static const brandLogoWhite = 'assets/images/ithena_imex_logo_white.png';
   static const deviceProvisioning = 'assets/images/provisioning.svg';
   static const deviceProvisioningDone = 'assets/images/provisioning-done.svg';
   static const deviceProvisioningError = 'assets/images/device-not-connected.svg';

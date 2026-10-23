@@ -8,7 +8,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:thingsboard_app/app_bloc_observer.dart';
-import 'package:thingsboard_app/config/themes/tb_theme.dart';
+import 'package:thingsboard_app/config/themes/imex_theme.dart';
 import 'package:thingsboard_app/constants/enviroment_variables.dart';
 import 'package:thingsboard_app/core/auth/login/select_region/model/region.dart';
 import 'package:thingsboard_app/firebase_options.dart';
@@ -24,22 +24,12 @@ void main() async {
  await SystemChrome.setPreferredOrientations([
    DeviceOrientation.portraitUp,
  ]);
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: imexBar,
-      // white clock / battery icons (Android)
-      statusBarIconBrightness: Brightness.light,
-      // same effect on iOS
-      statusBarBrightness: Brightness.dark,
-      systemNavigationBarColor: imexBarDeep,
-      systemNavigationBarIconBrightness: Brightness.light,
-      systemNavigationBarDividerColor: imexBarDeep,
-    ),
-  );
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Hive.initFlutter();
   Hive.registerAdapter(RegionAdapter());
   await setUpRootDependencies();
+  // the iMEX look the pages showed last time (status bar, tab bar, sign-in), until a page reports it
+  await getIt<ImexThemeController>().load();
   if (UniversalPlatform.isAndroid) {
     await InAppWebViewController.setWebContentsDebuggingEnabled(
       kDebugMode || EnvironmentVariables.verbose,

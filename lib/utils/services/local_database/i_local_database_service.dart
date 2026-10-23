@@ -17,4 +17,9 @@ abstract interface class ILocalDatabaseService {
   Future<String?> getInitialAppLink();
 
   Future<void> deleteInitialAppLink();
+
+  /// The last colour theme the iMEX web pages applied (JSON), for the next start.
+  Future<String?> getImexTheme();
+
+  Future<void> setImexTheme(String json);
 }

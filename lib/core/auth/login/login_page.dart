@@ -95,10 +95,13 @@ class _LoginPageState extends TbPageState<LoginPage>
               builder: (context, state) {
                 switch (state) {
                   case AuthLoadingState():
-                    return const SizedBox.expand(
+                    return SizedBox.expand(
                       child: ColoredBox(
-                        color: Color(0x99FFFFFF),
-                        child: Center(child: TbProgressIndicator(size: 50.0)),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .surface
+                            .withValues(alpha: 0.6),
+                        child: const Center(child: TbProgressIndicator(size: 50.0)),
                       ),
                     );
                   case AuthDataState():
@@ -120,7 +123,10 @@ class _LoginPageState extends TbPageState<LoginPage>
                                     Align(
                                       alignment: Alignment.center,
                                       child: Image.asset(
-                                        ThingsboardImage.brandLogo,
+                                        Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? ThingsboardImage.brandLogoWhite
+                                            : ThingsboardImage.brandLogo,
                                         height: 56,
                                       ),
                                     ),
@@ -143,7 +149,7 @@ class _LoginPageState extends TbPageState<LoginPage>
                                                 S.of(context).loginWith,
                                                 style: TbTextStyles.bodyMedium
                                                     .copyWith(
-                                                      color: Colors.black
+                                                      color: Theme.of(context).colorScheme.onSurface
                                                           .withValues(
                                                             alpha: .54,
                                                           ),
@@ -169,12 +175,18 @@ class _LoginPageState extends TbPageState<LoginPage>
                                                           // translate-me-ignore-next-line
                                                           .oauth2Logos['qr-code-logo']!,
                                                       height: 24,
+                                                      colorFilter: ColorFilter.mode(
+                                                        Theme.of(context)
+                                                            .colorScheme
+                                                            .onSurface,
+                                                        BlendMode.srcIn,
+                                                      ),
                                                     ),
                                                     const SizedBox(width: 8),
                                                      Text(
                                                       S.of(context).scanQrCode,
-                                                      style: const TextStyle(
-                                                        color: Colors.black,
+                                                      style: TextStyle(
+                                                        color: Theme.of(context).colorScheme.onSurface,
                                                         fontWeight:
                                                             FontWeight.w400,
                                                       ),
@@ -196,7 +208,7 @@ class _LoginPageState extends TbPageState<LoginPage>
                                         children: [
                                           Flexible(
                                             child: Divider(
-                                              color: Colors.black.withValues(
+                                              color: Theme.of(context).colorScheme.onSurface.withValues(
                                                 alpha: .12,
                                               ),
                                             ),
@@ -209,14 +221,14 @@ class _LoginPageState extends TbPageState<LoginPage>
                                               S.of(context).or,
                                               style: TbTextStyles.bodyMedium
                                                   .copyWith(
-                                                    color: Colors.black
+                                                    color: Theme.of(context).colorScheme.onSurface
                                                         .withValues(alpha: .54),
                                                   ),
                                             ),
                                           ),
                                           Flexible(
                                             child: Divider(
-                                              color: Colors.black.withValues(
+                                              color: Theme.of(context).colorScheme.onSurface.withValues(
                                                 alpha: .12,
                                               ),
                                             ),
@@ -261,7 +273,7 @@ class _LoginPageState extends TbPageState<LoginPage>
                                                 enabledBorder:
                                                     OutlineInputBorder(
                                                       borderSide: BorderSide(
-                                                        color: Colors.black
+                                                        color: Theme.of(context).colorScheme.onSurface
                                                             .withValues(
                                                               alpha: .12,
                                                             ),
@@ -271,7 +283,7 @@ class _LoginPageState extends TbPageState<LoginPage>
                                                 labelStyle: TbTextStyles
                                                     .bodyLarge
                                                     .copyWith(
-                                                      color: Colors.black
+                                                      color: Theme.of(context).colorScheme.onSurface
                                                           .withValues(
                                                             alpha: .54,
                                                           ),
@@ -322,8 +334,7 @@ class _LoginPageState extends TbPageState<LoginPage>
                                                         OutlineInputBorder(
                                                           borderSide:
                                                               BorderSide(
-                                                                color: Colors
-                                                                    .black
+                                                                color: Theme.of(context).colorScheme.onSurface
                                                                     .withValues(
                                                                       alpha:
                                                                           .12,
@@ -335,7 +346,7 @@ class _LoginPageState extends TbPageState<LoginPage>
                                                     labelStyle: TbTextStyles
                                                         .bodyLarge
                                                         .copyWith(
-                                                          color: Colors.black
+                                                          color: Theme.of(context).colorScheme.onSurface
                                                               .withValues(
                                                                 alpha: .54,
                                                               ),
@@ -451,7 +462,7 @@ class _LoginPageState extends TbPageState<LoginPage>
             child: Text(
              S.of(context).loginWith,
               style: TbTextStyles.bodyMedium.copyWith(
-                color: Colors.black.withValues(alpha: .54),
+                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .54),
               ),
             ),
           ),
@@ -480,6 +491,10 @@ class _LoginPageState extends TbPageState<LoginPage>
                   // translate-me-ignore-next-line
                   ThingsboardImage.oauth2Logos['qr-code']!,
                   height: 24,
+                  colorFilter: ColorFilter.mode(
+                    Theme.of(context).colorScheme.onSurface,
+                    BlendMode.srcIn,
+                  ),
                 ),
               ),
             ),

@@ -7,7 +7,7 @@ import 'package:thingsboard_app/core/context/tb_context_widget.dart';
 import 'package:thingsboard_app/locator.dart';
 import 'package:thingsboard_app/utils/services/endpoint/i_endpoint_service.dart';
 import 'package:thingsboard_app/utils/services/local_database/i_local_database_service.dart';
-import 'package:thingsboard_app/widgets/tb_progress_indicator.dart';
+import 'package:thingsboard_app/widgets/imex_startup_screen.dart';
 
 class ThingsboardInitRegionApp extends TbPageWidget {
   ThingsboardInitRegionApp(super.tbContext, {super.key});
@@ -23,13 +23,7 @@ class _ThingsboardInitAppState extends TbPageState<ThingsboardInitRegionApp> {
       future: getIt<ILocalDatabaseService>().getSelectedRegion(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(
-            body: Container(
-              alignment: Alignment.center,
-              color: Colors.white,
-              child: const TbProgressIndicator(size: 50.0),
-            ),
-          );
+          return const ImexStartupScreen();
         }
 
          if ((snapshot.hasError || snapshot.data == null) &&
@@ -47,13 +41,7 @@ class _ThingsboardInitAppState extends TbPageState<ThingsboardInitRegionApp> {
         return FutureBuilder(
             future: future,
             builder: (context, snapshot) {
-              return Scaffold(
-                body: Container(
-                  alignment: Alignment.center,
-                  color: Colors.white,
-                  child: !snapshot.hasData ? const SizedBox() :  const TbProgressIndicator(size: 50.0),
-                ),
-              );
+              return ImexStartupScreen(showProgress: snapshot.hasData);
             });
       },
     );

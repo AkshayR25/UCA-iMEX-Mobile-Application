@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:thingsboard_app/config/themes/tb_theme.dart';
+import 'package:flutter/services.dart';
+import 'package:thingsboard_app/config/themes/imex_theme.dart';
 import 'package:thingsboard_app/core/context/tb_context_widget.dart';
 import 'package:thingsboard_app/modules/dashboard/di/dashboards_di.dart';
 import 'package:thingsboard_app/modules/dashboard/presentation/controller/dashboard_controller.dart';
@@ -38,91 +39,97 @@ class _SingleDashboardViewState extends TbContextState<SingleDashboardView>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // iMEX: dark page colour behind dashboards while they load
-      backgroundColor: imexPage,
-      // appBar: TbAppBar(
-      //   tbContext,
-      //   leading: BackButton(
-      //     onPressed: () async {
-      //       if (_dashboardController?.rightLayoutOpened.value == true) {
-      //         await _dashboardController?.toggleRightLayout();
-      //         return;
-      //       }
-      //
-      //       final controller = _dashboardController?.controller;
-      //       if (await controller?.canGoBack() == true) {
-      //         await controller?.goBack();
-      //       } else {
-      //         if (context.mounted) {
-      //           Navigator.of(context).pop();
-      //         }
-      //       }
-      //     },
-      //   ),
-      //   elevation: 1,
-      //   shadowColor: Colors.transparent,
-      //   title: ValueListenableBuilder<String>(
-      //     valueListenable: dashboardTitleValue,
-      //     builder: (context, title, widget) {
-      //       return Text(
-      //         title,
-      //         maxLines: 1,
-      //         overflow: TextOverflow.ellipsis,
-      //       );
-      //     },
-      //   ),
-      //   actions: [
-      //     ValueListenableBuilder<bool>(
-      //       valueListenable: hasRightLayout,
-      //       builder: (context, hasRightLayout, widget) {
-      //         if (hasRightLayout) {
-      //           return IconButton(
-      //             onPressed: () => _dashboardController?.toggleRightLayout(),
-      //             icon: AnimatedIcon(
-      //               progress: rightLayoutMenuAnimation,
-      //               icon: AnimatedIcons.menu_close,
-      //             ),
-      //           );
-      //         } else {
-      //           return const SizedBox.shrink();
-      //         }
-      //       },
-      //     ),
-      //   ],
-      //   canGoBack: canGoBack,
-      // ),
-      body: SafeArea(
-        child: DashboardWidget(
-          tbContext,
-          titleCallback: (title) {
-            dashboardTitleValue.value = widget.title ?? title;
-          },
-          controllerCallback: (controller, _) {
-            _dashboardController = controller;
-            controller.hasRightLayout.addListener(() {
-              hasRightLayout.value = controller.hasRightLayout.value;
-            });
-            controller.rightLayoutOpened.addListener(() {
-              if (controller.rightLayoutOpened.value) {
-                rightLayoutMenuController.forward();
-              } else {
-                rightLayoutMenuController.reverse();
-              }
-            });
-
-            controller.canGoBack.addListener(() {
-              setState(() {
-                canGoBack = controller.canGoBack.value;
+    final palette =
+        Theme.of(context).extension<ImexPalette>() ?? const ImexPalette();
+    // iMEX: the status bar blends with the web page's own (dark) header
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: palette.dashboardBars,
+      child: Scaffold(
+        // iMEX: the web pages' own background behind dashboards while they load
+        backgroundColor: palette.page,
+        // appBar: TbAppBar(
+        //   tbContext,
+        //   leading: BackButton(
+        //     onPressed: () async {
+        //       if (_dashboardController?.rightLayoutOpened.value == true) {
+        //         await _dashboardController?.toggleRightLayout();
+        //         return;
+        //       }
+        //
+        //       final controller = _dashboardController?.controller;
+        //       if (await controller?.canGoBack() == true) {
+        //         await controller?.goBack();
+        //       } else {
+        //         if (context.mounted) {
+        //           Navigator.of(context).pop();
+        //         }
+        //       }
+        //     },
+        //   ),
+        //   elevation: 1,
+        //   shadowColor: Colors.transparent,
+        //   title: ValueListenableBuilder<String>(
+        //     valueListenable: dashboardTitleValue,
+        //     builder: (context, title, widget) {
+        //       return Text(
+        //         title,
+        //         maxLines: 1,
+        //         overflow: TextOverflow.ellipsis,
+        //       );
+        //     },
+        //   ),
+        //   actions: [
+        //     ValueListenableBuilder<bool>(
+        //       valueListenable: hasRightLayout,
+        //       builder: (context, hasRightLayout, widget) {
+        //         if (hasRightLayout) {
+        //           return IconButton(
+        //             onPressed: () => _dashboardController?.toggleRightLayout(),
+        //             icon: AnimatedIcon(
+        //               progress: rightLayoutMenuAnimation,
+        //               icon: AnimatedIcons.menu_close,
+        //             ),
+        //           );
+        //         } else {
+        //           return const SizedBox.shrink();
+        //         }
+        //       },
+        //     ),
+        //   ],
+        //   canGoBack: canGoBack,
+        // ),
+        body: SafeArea(
+          child: DashboardWidget(
+            tbContext,
+            titleCallback: (title) {
+              dashboardTitleValue.value = widget.title ?? title;
+            },
+            controllerCallback: (controller, _) {
+              _dashboardController = controller;
+              controller.hasRightLayout.addListener(() {
+                hasRightLayout.value = controller.hasRightLayout.value;
               });
-            });
+              controller.rightLayoutOpened.addListener(() {
+                if (controller.rightLayoutOpened.value) {
+                  rightLayoutMenuController.forward();
+                } else {
+                  rightLayoutMenuController.reverse();
+                }
+              });
 
-            controller.openDashboard(
-              widget.id,
-              state: widget.state,
-              hideToolbar: widget.hideToolbar,
-            );
-          },
+              controller.canGoBack.addListener(() {
+                setState(() {
+                  canGoBack = controller.canGoBack.value;
+                });
+              });
+
+              controller.openDashboard(
+                widget.id,
+                state: widget.state,
+                hideToolbar: widget.hideToolbar,
+              );
+            },
+          ),
         ),
       ),
     );
@@ -131,8 +138,8 @@ class _SingleDashboardViewState extends TbContextState<SingleDashboardView>
   @override
   void initState() {
     super.initState();
-     diKey = UniqueKey().toString();
-     DashboardsDi.init(diKey, tbClient: tbClient);
+    diKey = UniqueKey().toString();
+    DashboardsDi.init(diKey, tbClient: tbClient);
     rightLayoutMenuController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 200),
@@ -150,7 +157,7 @@ class _SingleDashboardViewState extends TbContextState<SingleDashboardView>
 
   @override
   void dispose() {
-     DashboardsDi.dispose(diKey);
+    DashboardsDi.dispose(diKey);
     rightLayoutMenuController.dispose();
     _dashboardController?.canGoBack.dispose();
     super.dispose();

@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:thingsboard_app/config/themes/imex_theme.dart';
 import 'package:thingsboard_app/constants/enviroment_variables.dart';
 import 'package:thingsboard_app/core/context/tb_context_widget.dart';
 import 'package:thingsboard_app/generated/l10n.dart';
@@ -42,6 +44,14 @@ class _DashboardState extends TbContextState<DashboardWidget> {
   final dashboardLoading = ValueNotifier<bool>(true);
 
   late final DashboardController dashboardController;
+  InAppWebViewController? _webViewController;
+
+  // iMEX: covers the page, in the app's own page colour, until the page shows its own look
+  // (so a dark app never flashes the platform's light loading screen)
+  final _cover = ValueNotifier<bool>(true);
+  bool _pageThemed = false;
+  Timer? _coverTimer;
+  Timer? _coverFallback;
   late WebUri _initialUrl;
   final _exportModule = TbDashboardExportModule();
   final settings = InAppWebViewSettings(
@@ -129,6 +139,7 @@ class _DashboardState extends TbContextState<DashboardWidget> {
           onLoadStop: (controller, url)  {
             // translate-me-ignore-next-line
             log.debug('onLoadStop: $url');
+            _injectImexThemeBridge(controller);
             if (webViewLoading) {
               webViewLoading = false;
             }
@@ -142,6 +153,7 @@ class _DashboardState extends TbContextState<DashboardWidget> {
             if (dashboardLoading.value &&
                 req.url.path.contains('/dashboard/')) {
               dashboardLoading.value = false;
+              _uncover();
             }
           },
           onPermissionRequest: (controller, request) async {
@@ -156,10 +168,10 @@ class _DashboardState extends TbContextState<DashboardWidget> {
             );
           },
         ),
-        ValueListenableBuilder(
-          valueListenable: dashboardLoading,
-          builder: (context, loading, child) {
-            if (!loading) {
+        ListenableBuilder(
+          listenable: Listenable.merge([dashboardLoading, _cover]),
+          builder: (context, child) {
+            if (!dashboardLoading.value && !_cover.value) {
               return const SizedBox.shrink();
             } else {
               final data = MediaQuery.of(context);
@@ -171,8 +183,9 @@ class _DashboardState extends TbContextState<DashboardWidget> {
               return Container(
                 padding: EdgeInsets.only(bottom: bottomPadding),
                 alignment: Alignment.center,
-                color: Colors.white,
-                child: const TbProgressIndicator(size: 50.0),
+                color: Theme.of(context).extension<ImexPalette>()?.page ??
+                    Theme.of(context).scaffoldBackgroundColor,
+                child: const TbProgressIndicator(size: 40.0),
               );
             }
           },
@@ -192,10 +205,26 @@ class _DashboardState extends TbContextState<DashboardWidget> {
     );
 
     dashboardController = DashboardController(widget.tbContext);
+    // never keep the page covered for long, whatever the page does
+    _coverFallback = Timer(const Duration(seconds: 15), _uncover);
+  }
+
+  void _uncover() {
+    if (mounted) _cover.value = false;
+  }
+
+  void _uncoverIn(Duration delay) {
+    _coverTimer?.cancel();
+    _coverTimer = Timer(delay, _uncover);
   }
 
   @override
   void dispose() {
+    _coverTimer?.cancel();
+    _coverFallback?.cancel();
+    _cover.dispose();
+    final webView = _webViewController;
+    if (webView != null) getIt<ImexThemeController>().detach(webView);
     dashboardLoading.dispose();
     dashboardController.dispose();
     super.dispose();
@@ -205,7 +234,10 @@ class _DashboardState extends TbContextState<DashboardWidget> {
     InAppWebViewController webViewController,
   ) async {
     log.debug('onWebViewCreated');
+    _webViewController = webViewController;
+    getIt<ImexThemeController>().attach(webViewController);
     _exportModule.injectFileDownloadHandler(webViewController);
+    _injectImexThemeHandler(webViewController);
     _injectTbMobileReadyHandler(webViewController);
     _injectTbMobileDashboardLoadedHandler(webViewController);
     _injectTbMobileDashboardLayoutHandler(webViewController);
@@ -325,8 +357,33 @@ class _DashboardState extends TbContextState<DashboardWidget> {
         dashboardController.onHasRightLayout(hasRightLayout);
         dashboardController.onRightLayoutOpened(rightLayoutOpened);
         dashboardLoading.value = false;
+        _injectImexThemeBridge(webViewController);
+        if (!_pageThemed) _uncoverIn(const Duration(seconds: 3));
       },
     );
+  }
+
+  // iMEX: the page reports the colour theme and light / dark mode it shows
+  void _injectImexThemeHandler(InAppWebViewController webViewController) {
+    webViewController.addJavaScriptHandler(
+      handlerName: 'imxThemeHandler',
+      callback: (args) {
+        if (args.isEmpty) return;
+        final data = args.first;
+        if (data is Map && data['mode'] != null) {
+          _pageThemed = true;
+          _uncoverIn(const Duration(milliseconds: 300));
+        }
+        getIt<ImexThemeController>().onSnapshot(webViewController, data);
+      },
+    );
+  }
+
+  // idempotent: the page keeps one bridge (window.__imxAppBridge); a second call re-sends
+  void _injectImexThemeBridge(InAppWebViewController webViewController) {
+    webViewController
+        .evaluateJavascript(source: imexThemeBridgeJs)
+        .catchError((Object e) => log.debug('imexThemeBridge: $e'));
   }
 
   void _injectTbMobileReadyHandler(InAppWebViewController webViewController) {

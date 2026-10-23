@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:thingsboard_app/constants/assets_path.dart';
 
+/// The app's loading indicator (as in the sopakco app): a spinning ring with the ITHENA
+/// mark in the middle, both in the theme's primary colour.
 class TbProgressIndicator extends ProgressIndicator {
-
   const TbProgressIndicator({
     super.key,
     this.size = 36.0,
@@ -21,7 +22,7 @@ class TbProgressIndicator extends ProgressIndicator {
   State<StatefulWidget> createState() => _TbProgressIndicatorState();
 
   Color _getValueColor(BuildContext context) =>
-      valueColor?.value ?? Theme.of(context).primaryColor;
+      valueColor?.value ?? Theme.of(context).colorScheme.primary;
 }
 
 class _TbProgressIndicatorState extends State<TbProgressIndicator>
@@ -55,39 +56,36 @@ class _TbProgressIndicatorState extends State<TbProgressIndicator>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        ColorFiltered(
-          colorFilter: ColorFilter.mode(
-            widget._getValueColor(context),
-            BlendMode.srcIn,
-          ),
-          child: Image.asset(
+    final color = widget._getValueColor(context);
+    return SizedBox.square(
+      dimension: widget.size,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Image.asset(
             ThingsboardImage.thingsboardCenter,
-            height: widget.size * 0.5,
-            width: widget.size * 0.5,
+            height: widget.size * 0.4,
+            width: widget.size * 0.4,
+            color: color,
+            colorBlendMode: BlendMode.srcIn,
           ),
-        ),
-        AnimatedBuilder(
-          animation: _rotation,
-          child: SvgPicture.asset(
-            ThingsboardImage.thingsboardOuter,
-            height: widget.size,
-            width: widget.size,
-            colorFilter: ColorFilter.mode(
-              widget._getValueColor(context),
-              BlendMode.srcIn,
+          AnimatedBuilder(
+            animation: _rotation,
+            child: SvgPicture.asset(
+              ThingsboardImage.loaderRing,
+              height: widget.size,
+              width: widget.size,
+              colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
             ),
+            builder: (BuildContext context, Widget? child) {
+              return Transform.rotate(
+                angle: _rotation.value * pi * 2,
+                child: child,
+              );
+            },
           ),
-          builder: (BuildContext context, Widget? child) {
-            return Transform.rotate(
-              angle: _rotation.value * pi * 2,
-              child: child,
-            );
-          },
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -1,107 +1,85 @@
 import 'package:flutter/material.dart';
+import 'package:thingsboard_app/config/themes/imex_theme.dart';
+import 'package:thingsboard_app/locator.dart';
 import 'package:thingsboard_app/utils/transition/page_transitions.dart';
 
-const int _tbPrimaryColorValue = 0xFF0580C7; // ITHENA Blue
-const Color _tbPrimaryColor = Color(_tbPrimaryColorValue);
-const Color _tbSecondaryColor = Color(0xFF04568A); // ITHENA Deep Blue
-const Color _tbDarkPrimaryColor = Color(0xFF4FA8DC); // Lighter blue for dark mode
-const Color _tbGreyColor = Color(0xFFC3C6C9); // ITHENA Grey
-
-// iMEX app colours (server colour theme "Teal")
-const imexBar = Color(0xFF0B3F45); // status bar, tab bar
-const imexBarDeep = Color(0xFF062A2F); // Android navigation bar
-const imexAccent = Color(0xFF5EEAD4); // selected tab
-const imexMuted = Color(0xB3FFFFFF); // other tabs (white 70 %)
-const imexPage = Color(0xFF0B1220); // behind the pages while they load
-
-Color get appPrimaryColor => _tbPrimaryColor;
-
+/// The primary colour of the iMEX web theme currently in effect.
+Color get appPrimaryColor => getIt<ImexThemeController>().value.primary;
 
 Typography tbTypography = Typography.material2018();
 
-const tbMatBlue = MaterialColor(_tbPrimaryColorValue, <int, Color>{
-  50: Color(0xFFE1F0F8),
-  100: Color(0xFFB4D9EE),
-  200: Color(0xFF82C0E3),
-  300: Color(0xFF50A6D8),
-  400: Color(0xFF2B93CF),
-  500: _tbPrimaryColor,
-  600: Color(0xFF0478C1),
-  700: Color(0xFF046DBA),
-  800: Color(0xFF0363B2),
-  900: Color(0xFF0250A5),
-});
+/// The app's theme, built from the colours the iMEX web pages show
+/// (Configuration › Look & feel, and this phone's light / dark mode).
+ThemeData buildTbTheme(ImexPalette p) {
+  final dark = p.isDark;
+  final onAppBar = ImexPalette.onColor(p.appBar);
+  final surface = dark ? p.surface : Colors.white;
+  final base = ThemeData(
+    useMaterial3: false,
+    brightness: dark ? Brightness.dark : Brightness.light,
+  );
 
-const tbDarkMatBlue = tbMatBlue;
-
-final ThemeData theme = ThemeData(primarySwatch: tbMatBlue);
-
-ThemeData tbTheme = ThemeData(
-  useMaterial3: false,
-  primarySwatch: tbMatBlue,
-  colorScheme: theme.colorScheme.copyWith(
-    primary: _tbPrimaryColor,
-    secondary: _tbSecondaryColor,
-  ),
-  scaffoldBackgroundColor: Colors.white,
-  textTheme: tbTypography.black,
-  primaryTextTheme: tbTypography.black,
-  typography: tbTypography,
-
-  appBarTheme: const AppBarTheme(
-    backgroundColor: _tbPrimaryColor,
-    foregroundColor: Colors.white,
-    iconTheme: IconThemeData(color: Colors.white),
-    titleTextStyle: TextStyle(
-      color: Colors.white,
-      fontSize: 20,
-      fontWeight: FontWeight.w500,
-      letterSpacing: 0.15,
+  return ThemeData(
+    useMaterial3: false,
+    brightness: dark ? Brightness.dark : Brightness.light,
+    primaryColor: p.primary,
+    colorScheme: base.colorScheme.copyWith(
+      primary: p.primary,
+      onPrimary: ImexPalette.onColor(p.primary),
+      secondary: p.primary,
+      onSecondary: ImexPalette.onColor(p.primary),
+      surface: surface,
+      onSurface: dark ? p.text : const Color(0xDE000000),
+      outline: p.line,
     ),
-    toolbarTextStyle: TextStyle(color: Colors.white),
-  ),
+    scaffoldBackgroundColor: p.screen,
+    canvasColor: surface,
+    dividerColor: p.line,
+    textTheme: dark ? tbTypography.white : tbTypography.black,
+    primaryTextTheme: dark ? tbTypography.white : tbTypography.black,
+    typography: tbTypography,
+    extensions: [p],
 
-  cardTheme: CardThemeData(
-    color: Colors.white,
-    elevation: 2,
-
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12),
+    // native app bars: dark in dark mode, light in light mode
+    appBarTheme: AppBarTheme(
+      backgroundColor: p.appBar,
+      foregroundColor: onAppBar,
+      iconTheme: IconThemeData(color: onAppBar),
+      actionsIconTheme: IconThemeData(color: onAppBar),
+      systemOverlayStyle: p.appBarBars,
+      titleTextStyle: TextStyle(
+        color: onAppBar,
+        fontSize: 20,
+        fontWeight: FontWeight.w500,
+        letterSpacing: 0.15,
+      ),
+      toolbarTextStyle: TextStyle(color: onAppBar),
     ),
-  ),
 
-  bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    backgroundColor: imexBar,
-    selectedItemColor: imexAccent,
-    unselectedItemColor: imexMuted,
-    showSelectedLabels: true,
-    showUnselectedLabels: true,
-  ),
+    cardTheme: CardThemeData(
+      color: surface,
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+    ),
 
-  pageTransitionsTheme: const PageTransitionsTheme(
-    builders: {
-      TargetPlatform.iOS: FadeOpenPageTransitionsBuilder(),
-      TargetPlatform.android: FadeOpenPageTransitionsBuilder(),
-    },
-  ),
-);
+    dialogTheme: DialogThemeData(backgroundColor: surface),
+    bottomSheetTheme: BottomSheetThemeData(backgroundColor: surface),
 
-final ThemeData darkTheme = ThemeData(
-  primarySwatch: tbDarkMatBlue,
-  brightness: Brightness.dark,
-);
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: p.tabBar,
+      selectedItemColor: p.tabSelected,
+      unselectedItemColor: p.tabUnselected,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
+    ),
 
-ThemeData tbDarkTheme = ThemeData(
-  primarySwatch: tbDarkMatBlue,
-  brightness: Brightness.dark,
-  colorScheme: darkTheme.colorScheme.copyWith(
-    primary: _tbDarkPrimaryColor,
-    secondary: _tbSecondaryColor,
-  ),
-  scaffoldBackgroundColor: const Color(0xFF0D1B2A),
-
-  bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    selectedItemColor: _tbSecondaryColor,
-    unselectedItemColor: _tbGreyColor.withValues(alpha: 0.5),
-  ),
-);
+    pageTransitionsTheme: const PageTransitionsTheme(
+      builders: {
+        TargetPlatform.iOS: FadeOpenPageTransitionsBuilder(),
+        TargetPlatform.android: FadeOpenPageTransitionsBuilder(),
+      },
+    ),
+  );
+}

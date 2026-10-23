@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:thingsboard_app/config/themes/imex_theme.dart';
 import 'package:thingsboard_app/core/context/tb_context_widget.dart';
 import 'package:thingsboard_app/locator.dart';
 import 'package:thingsboard_app/modules/layout_pages/bloc/bloc.dart';
@@ -24,10 +26,11 @@ class _MainPageState extends TbPageState<MainPage>
   @override
   Widget build(BuildContext context) {
     return BlocProvider<LayoutPagesBloc>(
-      create: (_) => LayoutPagesBloc(
-        layoutService: getIt<ILayoutService>(),
-        tbContext: tbContext,
-      )..add(BottomBarFetchEvent(context)),
+      create:
+          (_) => LayoutPagesBloc(
+            layoutService: getIt<ILayoutService>(),
+            tbContext: tbContext,
+          )..add(BottomBarFetchEvent(context)),
       child: BlocBuilder<LayoutPagesBloc, LayoutPagesState>(
         builder: (context, state) {
           switch (state) {
@@ -48,25 +51,32 @@ class _MainPageState extends TbPageState<MainPage>
                   if (this.orientation != orientation) {
                     this.orientation = orientation;
                     context.read<LayoutPagesBloc>().add(
-                          BottomBarOrientationChangedEvent(
-                            orientation,
-                            MediaQuery.of(context).size,
-                          ),
-                        );
+                      BottomBarOrientationChangedEvent(
+                        orientation,
+                        MediaQuery.of(context).size,
+                      ),
+                    );
                   }
 
-                  return Scaffold(
-                    body: TabBarView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      controller: _tabController,
-                      children: state.items.map((e) => e.page).toList(),
-                    ),
-                    bottomNavigationBar: ValueListenableBuilder<int>(
-                      valueListenable: _currentIndexNotifier,
-                      builder: (_, _, _) => TbNavigationBarWidget(
-                        currentIndex: _currentIndexNotifier.value,
-                        onTap: (index) => _setIndex(index),
-                        customBottomBarItems: state.items,
+                  final palette =
+                      Theme.of(context).extension<ImexPalette>() ??
+                      const ImexPalette();
+                  return AnnotatedRegion<SystemUiOverlayStyle>(
+                    value: palette.tabsBars,
+                    child: Scaffold(
+                      body: TabBarView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        controller: _tabController,
+                        children: state.items.map((e) => e.page).toList(),
+                      ),
+                      bottomNavigationBar: ValueListenableBuilder<int>(
+                        valueListenable: _currentIndexNotifier,
+                        builder:
+                            (_, _, _) => TbNavigationBarWidget(
+                              currentIndex: _currentIndexNotifier.value,
+                              onTap: (index) => _setIndex(index),
+                              customBottomBarItems: state.items,
+                            ),
                       ),
                     ),
                   );
@@ -75,9 +85,7 @@ class _MainPageState extends TbPageState<MainPage>
 
             default:
               return const Scaffold(
-                body: Center(
-                  child: TbProgressIndicator(size: 50),
-                ),
+                body: Center(child: TbProgressIndicator(size: 50)),
               );
           }
         },
@@ -87,7 +95,7 @@ class _MainPageState extends TbPageState<MainPage>
 
   void _setIndex(int index) {
     if (_tabController.index != index) {
-     overlayService.hideNotification();
+      overlayService.hideNotification();
       _tabController.index = index;
       _currentIndexNotifier.value = index;
       tbContext.bottomNavigationTabChangedStream.add(index);

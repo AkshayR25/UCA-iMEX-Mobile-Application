@@ -114,12 +114,12 @@ flutter_launcher_icons:
   ### android config
   android: "launcher_icon"
   #fallback android icon
-  image_path_android: "assets/branding/icon_filled.png"
+  image_path_android: "assets/branding/android_icon_legacy.png"
   # icon config for android 13+
-  adaptive_icon_background: "#ffffff"
-  adaptive_icon_foreground: "assets/branding/icon_foreground.png"
+  adaptive_icon_background: "#08426F"
+  adaptive_icon_foreground: "assets/branding/android_icon_foreground.png"
   adaptive_icon_foreground_inset: 16
-  adaptive_icon_monochrome: "assets/branding/icon_monochrome.png"
+  adaptive_icon_monochrome: "assets/branding/android_icon_monochrome.png"
   ###
   ### ios config
   ios: true

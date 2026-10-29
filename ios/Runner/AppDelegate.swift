@@ -1,30 +1,26 @@
 import UIKit
 import Flutter
 
+// UIScene lifecycle (https://docs.flutter.dev/release/breaking-changes/uiscenedelegate):
+// the UI belongs to the scene (SceneDelegate), so nothing here may touch the window or the
+// FlutterViewController. Plugins and channels are registered once the engine exists.
 @main
-@objc class AppDelegate: FlutterAppDelegate {
+@objc class AppDelegate: FlutterAppDelegate, FlutterImplicitEngineDelegate {
   override func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
+    // must be set before launch finishes, so it stays here
+    UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
 
-    self.registerTbWebAuth()
-
-    if #available(iOS 10.0, *) {
-      UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
-    }
-
-    GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 
-  private func registerTbWebAuth() {
-    let controller : FlutterViewController = window?.rootViewController as! FlutterViewController
-    let channel = FlutterMethodChannel(name: "tb_web_auth", binaryMessenger: controller.binaryMessenger)
-    let instance = TbWebAuthHandler()
-    channel.setMethodCallHandler({
-          (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
-        instance.handle(call, result: result)
-    })
+  func didInitializeImplicitFlutterEngine(_ engineBridge: FlutterImplicitEngineBridge) {
+    GeneratedPluginRegistrant.register(with: engineBridge.pluginRegistry)
+
+    if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "TbWebAuthHandler") {
+      TbWebAuthHandler.register(with: registrar)
+    }
   }
 }

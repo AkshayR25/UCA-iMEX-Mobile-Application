@@ -3,10 +3,11 @@ description: Flutter ThingsBoard Mobile Application
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.7.2+10
+version: 1.7.3+11
 
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.13.0
+  flutter: ">=3.47.0"
 
 dependencies:
   flutter:
@@ -51,7 +52,7 @@ dependencies:
   flutter_bloc: ^9.1.1
   get_it: ^9.2.0
   equatable: ^2.0.5
-  app_links: ^6.3.2
+  app_links: ^7.2.2
   collection: ^1.18.0
   html: ^0.15.4
   hive: ^2.2.3
@@ -100,6 +101,11 @@ dev_dependencies:
   freezed: ^3.1.0
   flutter_gen: ^5.11.0
 dependency_overrides:
+  # Patched copies for Flutter 3.47+ (no fixed upstream release), see third_party/README.md
+  material_design_icons_flutter:
+    path: third_party/material_design_icons_flutter
+  super_tooltip:
+    path: third_party/super_tooltip
   logger: ^2.5.0
   http: ^1.3.0
   wakelock_plus: ^1.3.2

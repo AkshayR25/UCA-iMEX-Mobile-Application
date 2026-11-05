@@ -47,7 +47,7 @@ def webPathPrefix = getDartDefineValue('webPathPrefix') ?: '/api/noauth/qr'
 def appLinksUrlScheme = getDartDefineValue('appLinksUrlScheme') ?: 'http'
 android {
     namespace "org.thingsboard.app"
-    compileSdkVersion 35
+    compileSdkVersion 36
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }

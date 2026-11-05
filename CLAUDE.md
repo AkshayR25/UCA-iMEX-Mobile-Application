@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Flutter Version
 
-This project uses Flutter **3.29.0** (pinned via `.fvmrc`). Use `fvm flutter` if FVM is installed, otherwise ensure `flutter --version` matches.
+This project uses Flutter **3.47.8** (pinned via `.fvmrc`). Use `fvm flutter` if FVM is installed, otherwise ensure `flutter --version` matches.
 
 ## Common Commands
 

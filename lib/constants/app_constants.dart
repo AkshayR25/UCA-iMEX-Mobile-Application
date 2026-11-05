@@ -1,6 +1,6 @@
 abstract final class ThingsboardAppConstants {
   static const thingsBoardApiEndpoint = "https://nexusair.ucaair.com";
-  static const thingsboardOAuth2CallbackUrlScheme = "com.iserv.uca.auth";
+  static const thingsboardOAuth2CallbackUrlScheme = "com.uca.nexusair.auth";
   static const thingsboardIOSAppSecret = String.fromEnvironment('thingsboardIosAppSecret');
   static const thingsboardAndroidAppSecret = "ejVsZkppRXNWYkZBQ3lsVkIxUnVaaXhXbkoxeGloU0tWNHJNMWN2WEZQWWVIZ2hDRlBnd2RlRHBJalZtWGphQg==";
   static const ignoreRegionSelection = thingsBoardApiEndpoint != '';

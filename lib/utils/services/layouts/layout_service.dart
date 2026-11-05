@@ -24,8 +24,8 @@ class LayoutService implements ILayoutService {
     );
 
     if (deviceScreenSize.width < 600) {
-      return bottomBarItems.length > 3
-          ? [...bottomBarItems.sublist(0, 3), more]
+      return bottomBarItems.length > 2
+          ? [...bottomBarItems.sublist(0, 2), more]
           : [...bottomBarItems, more];
     } else if (deviceScreenSize.width < 960) {
       return bottomBarItems.length > 5
